@@ -6,7 +6,7 @@ from ui.pages.header import Header
 
 
 class TestLogin():
-    driver = get_driver('chrome')
+    driver = get_driver(browser_name='chrome')
 
     @allure.feature('Test Login')
     @allure.story('Login')

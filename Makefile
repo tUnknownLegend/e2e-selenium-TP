@@ -3,4 +3,7 @@ run-linter:
 
 run-tests:
 	pytest --alluredir=allure-results hw/code/test*.py
+
+run-local-tests:
+	pytest hw/code/test*.py
 	

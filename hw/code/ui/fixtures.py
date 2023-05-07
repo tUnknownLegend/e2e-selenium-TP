@@ -1,6 +1,4 @@
 import pytest
-import allure
-import os
 
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
@@ -47,29 +45,11 @@ def get_driver(browser_name):
     else:
         raise RuntimeError(f'Unsupported browser: "{browser_name}"')
 
-    if headless:
+    if headless is True:
         browser.set_window_size(1920, 1080)
     else:
         browser.maximize_window()
     return browser
-
-
-def ui_report(self, driver, request, temp_dir):
-    failed_test_count = request.session.testsfailed
-    yield
-    if request.session.testsfailed > failed_test_count:
-        browser_logs = os.path.join(temp_dir, 'browser.log')
-        with open(browser_logs, 'w') as f:
-            print(temp_dir)
-            for i in driver.get_log('browser'):
-                f.write(f"{i['level']} - {i['source']}\n{i['message']}\n")
-        screenshot_path = os.path.join(temp_dir, 'failed.png')
-        self.driver.save_screenshot(filename=screenshot_path)
-        allure.attach.file(screenshot_path, 'failed.png',
-                           allure.attachment_type.PNG)
-        with open(browser_logs, 'r') as f:
-            allure.attach(f.read(), 'test.log',
-                          allure.attachment_type.TEXT)
 
 
 @pytest.fixture(scope='session', params=['chrome', 'firefox'])
