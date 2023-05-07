@@ -1,6 +1,7 @@
 import time
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.action_chains import ActionChains
 
 
 class PageNotOpenedExeption(Exception):
@@ -21,6 +22,7 @@ class BasePage(object):
 
     def __init__(self, driver):
         self.driver = driver
+        self.actions = ActionChains(driver)
 
     def render(self, url):
         self.driver.get(url)
@@ -28,6 +30,12 @@ class BasePage(object):
     def render_page(self):
         self.render(self.url)
         self.is_opened(self.url)
+
+    def render_decorator(self, func):
+        def wrapper(newSelf):
+            self.render_page()
+            func(newSelf)
+        return wrapper
 
     def wait(self, timeout=None):
         if timeout is None:
@@ -37,3 +45,12 @@ class BasePage(object):
     def find(self, locator, timeout=10):
         return self.wait(timeout).until(
             EC.presence_of_element_located(locator))
+
+    def hover(self, element):
+        self.actions.move_to_element(element).perform()
+
+    def waitUntilVisible(self, selector, timeout):
+        self.wait(timeout).until(EC.presence_of_element_located(selector))
+
+    def waitUntilInvisible(self, selector, timeout):
+        self.wait(timeout).until(EC.invisibility_of_element_located(selector))

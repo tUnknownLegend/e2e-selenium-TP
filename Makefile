@@ -6,4 +6,7 @@ run-tests:
 
 run-local-tests:
 	pytest hw/code/test*.py
+
+show-results-allure:
+	allure serve /allure-results
 	
