@@ -62,7 +62,7 @@ class SearchHeader(BasePage):
         thirdSuggestionText = thirdSearchSuggestion.get_attribute('innerText')
         thirdSearchSuggestion.click()
 
-        self.waitUntilVisible(self.locators.FIND_FIRST_SEARCH_RESULT_TITLE, 3)
+        self.waitUntilVisible(self.locators.FIND_FIRST_SEARCH_RESULT_TITLE, 1)
 
         assert self.find(
             self.locators.FIND_FIRST_SEARCH_RESULT_TITLE
