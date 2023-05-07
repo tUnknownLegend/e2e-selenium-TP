@@ -25,23 +25,6 @@ class HeaderLocators():
         By.XPATH, '//div[@class="profile__pop-up/a[@href="/logout"]"]'
     )
 
-    SEARCH_INPUT = (By.NAME, 'search-line')
-
-    SEARCH_BUTTON = (By.ID, 'search-button-submit')
-
-    HEADER_ERROR_MESSAGE = (By.ID, 'header_error-message')
-
-    SEARCH_NO_RESULTS_MESSAGE = (By.ID, 'content-unAuth-page-redirect')
-
-    FIND_FIRST_SEARCH_RESULT_TITLE = (
-        By.XPATH, '//div[@id="items-block"]/div[@class="catalog-item-card"][1]' +
-        '/div[@class="catalog-item-card__description-block"]' +
-        '/div[@id="catalog_item-title-block"]')
-
-    GET_THIRD_SEARCH_SUGGESTION = (By.ID, 'search-suggestion:2')
-
-    GET_FIRST_SEARCH_SUGGESTION = (By.ID, 'search-suggestion:0')
-
     OPEN_CATEGORY_SELECTOR_BUTTON = (By.ID, 'header__button-catalog')
 
     CATEGORY_SELECTOR_MENU = (By.ID, 'header__dropdown__content')

@@ -5,12 +5,14 @@ import allure
 from ui.fixtures import get_driver
 from ui.pages.login_page import LoginPage
 from ui.pages.header import Header
+from ui.pages.search_header import SearchHeader
 
 
 class TestHeader():
     driver = get_driver(browser_name='chrome')
     login_page = LoginPage(driver)
     header = Header(driver)
+    searchHeader = SearchHeader(driver)
 
     # @pytest.mark.skip('skip')
     @allure.feature('Tests login / profile button')
@@ -46,19 +48,19 @@ class TestHeader():
     @header.render_decorator
     def test_searchTest(self):
         allure.step('checkPhoneCategory')
-        self.header.checkPhoneCategory()
+        self.searchHeader.checkPhoneCategory()
 
         allure.step('checkProhibitedSymbolsSearch')
-        self.header.checkProhibitedSymbolsSearch()
+        self.searchHeader.checkProhibitedSymbolsSearch()
 
         allure.step('checkSearchSuggestions')
-        self.header.checkSearchSuggestions()
+        self.searchHeader.checkSearchSuggestions()
 
         allure.step('sendNoResultsRequest')
-        self.header.sendNoResultsRequest()
+        self.searchHeader.sendNoResultsRequest()
 
         allure.step('performTooShortSearchRequest')
-        self.header.performTooShortSearchRequest()
+        self.searchHeader.performTooShortSearchRequest()
 
     @allure.feature('Selects category')
     @allure.story('selects all categories from hamburger menu in header')

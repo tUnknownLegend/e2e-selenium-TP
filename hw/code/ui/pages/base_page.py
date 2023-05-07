@@ -2,6 +2,7 @@ import time
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
+from ui.locators.base_locators import BaseLocators
 
 
 class PageNotOpenedExeption(Exception):
@@ -9,6 +10,7 @@ class PageNotOpenedExeption(Exception):
 
 
 class BasePage(object):
+    baseLocators = BaseLocators()
 
     def is_opened(self, url, timeout=15):
         started = time.time()
@@ -54,3 +56,12 @@ class BasePage(object):
 
     def waitUntilInvisible(self, selector, timeout):
         self.wait(timeout).until(EC.invisibility_of_element_located(selector))
+
+    def checkErrorMessage(self, errorMessage):
+        errorMessageElement = self.find(
+            self.baseLocators.HEADER_ERROR_MESSAGE)
+
+        self.waitUntilVisible(self.baseLocators.HEADER_ERROR_MESSAGE, 1)
+        assert errorMessageElement.get_attribute('innerText') == errorMessage
+
+        self.waitUntilInvisible(self.baseLocators.HEADER_ERROR_MESSAGE, 6)
