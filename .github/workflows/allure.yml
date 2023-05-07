@@ -27,10 +27,13 @@ jobs:
           pip install -r requirements.txt
 
       - name: Check code style
-        run: flake8
+        if: always()
+        run: |
+          flake8
 
       - name: Run Test
-        run: pytest --alluredir=allure-results
+        if: always()
+        run: make run-tests
         continue-on-error: true
 
       - name: Get Allure history
