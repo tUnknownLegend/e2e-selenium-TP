@@ -16,7 +16,8 @@ class BasePage(object):
                 return True
 
         raise PageNotOpenedExeption(
-            f'{url} did not open in {timeout} sec, current url {self.driver.current_url}')
+            f'{url} did not open in {timeout} sec,' +
+            f'current url {self.driver.current_url}')
 
     def __init__(self, driver):
         self.driver = driver
@@ -34,4 +35,5 @@ class BasePage(object):
         return WebDriverWait(self.driver, timeout=timeout)
 
     def find(self, locator, timeout=10):
-        return self.wait(timeout).until(EC.presence_of_element_located(locator))
+        return self.wait(timeout).until(
+            EC.presence_of_element_located(locator))

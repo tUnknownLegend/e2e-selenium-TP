@@ -47,7 +47,7 @@ def get_driver(browser_name):
     else:
         raise RuntimeError(f'Unsupported browser: "{browser_name}"')
 
-    if headless == True:
+    if headless:
         browser.set_window_size(1920, 1080)
     else:
         browser.maximize_window()
