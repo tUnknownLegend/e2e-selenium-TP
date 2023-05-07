@@ -2,9 +2,9 @@ name: allure-python-pytest
 
 on:
   pull_request:
-    branches: [ main ]
+    branches: [main]
   push:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   autotests:
@@ -16,10 +16,10 @@ jobs:
       - name: Set up Python 3.x
         uses: actions/setup-python@v2
         with:
-          python-version: '3.9'
+          python-version: "3.9"
 
       - name: Install software
-        run: sudo apt-get install -y chromium-browser    
+        run: sudo apt-get install -y chromium-browser
 
       - name: Install dependencies
         run: |
@@ -27,12 +27,9 @@ jobs:
           pip install -r requirements.txt
 
       - name: Check code style
-        if: always()
-        run: |
-          flake8
+        run: flake8
 
       - name: Run Test
-        if: always()
         run: pytest --alluredir=allure-results
         continue-on-error: true
 
