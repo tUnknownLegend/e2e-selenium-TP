@@ -1,1 +1,1 @@
-pytest hw/code/test*.py
+pytest --alluredir=./allure-results hw/code/test*.py
