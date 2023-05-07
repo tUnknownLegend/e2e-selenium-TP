@@ -1,29 +1,29 @@
-name: test
+# name: test
 
-on:
-  pull_request:
-    branches: [ main ]
-  push:
-    branches: [ main ]
+# on:
+#   pull_request:
+#     branches: [ main ]
+#   push:
+#     branches: [ main ]
 
-jobs:
-  selenium:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out this repo
-        uses: actions/checkout@v2
+# jobs:
+#   selenium:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Check out this repo
+#         uses: actions/checkout@v2
 
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: '3.9'
+#       - name: Set up Python
+#         uses: actions/setup-python@v2
+#         with:
+#           python-version: '3.9'
 
-      - name: Install software
-        run: sudo apt-get install -y chromium-browser
+#       - name: Install software
+#         run: sudo apt-get install -y chromium-browser
 
-      - name: Install the necessary packages
-        run: pip install requests webdriver-manager selenium pytest
+#       - name: Install the necessary packages
+#         run: pip install requests webdriver-manager selenium pytest
 
-      - name: Run pytest
-        run: bash runner_tests.sh
+#       - name: Run pytest
+#         run: make run-tests
 

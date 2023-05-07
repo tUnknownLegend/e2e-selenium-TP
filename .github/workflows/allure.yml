@@ -27,12 +27,9 @@ jobs:
           pip install -r requirements.txt
 
       - name: Check code style
-        if: always()
-        run: |
-          flake8
+        run: make run-linter
 
       - name: Run Test
-        if: always()
         run: make run-tests
         continue-on-error: true
 
