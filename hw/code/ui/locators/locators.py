@@ -20,10 +20,12 @@ class CartLocators:
     POPUP_MESSAGE = (By.ID, 'header_error-message')
     MESSAGE_FOR_LOGIN = (By.XPATH, '//div[@id="header_error-message"]/span')
     BUTTON_DELETE_PRODUCT = (By.XPATH, '//span[starts-with(@id, "delete-cart-item/")]')
-    
+    BUTTON_MINUS_PRODUCT = (By.XPATH, '//button[starts-with(@id, "button-minus_cart/")]')
+    BUTTON_PLUS_PRODUCT = (By.XPATH, '//button[starts-with(@id, "button-plus_cart/")]')
+
 class CategoryPhonesLocators:
     BUTTON_ADD_TO_CART = (By.XPATH, '//div[@id="catalog_block-button-add-to-cart"][1]/div')
-    
+
 # class AuthorizeLocators:
 #     LOGIN_BUTTON = (By.XPATH, '//div[starts-with(@class, "responseHead-module-button")]')
 #     LOGIN_BUTTON_FORM = (By.XPATH, '//div[starts-with(@class,"authForm-module-button")]')
