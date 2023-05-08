@@ -5,11 +5,13 @@ from ui.locators.search_header_locators import SearchHeaderLocators
 
 
 class SearchHeader(BasePage):
-    url = 'https://www.reazon.ru/'
-
     headerLocators = HeaderLocators()
     categoryLocators = CatalogLocators()
-    locators = SearchHeaderLocators()
+
+    def __init__(self, driver):
+        super(SearchHeader, self).__init__(driver)
+        self.locators = SearchHeaderLocators()
+        self.url = self.domain + self.locators.hrefs.home
 
     def _noop():
         pass
@@ -42,7 +44,7 @@ class SearchHeader(BasePage):
     def checkPhoneCategory(self):
         self.performSearch(
             'т', self.checkFirstSearchSuggestion)
-        self.is_opened('https://www.reazon.ru/category/phones')
+        self.is_opened(f'{self.domain}{self.locators.hrefs.category}/phones')
 
     def checkProhibitedSymbolsSearch(self):
         self.performSearch("<img src onerror=alert(1) />")
@@ -64,8 +66,8 @@ class SearchHeader(BasePage):
 
         self.waitUntilVisible(self.locators.FIND_FIRST_SEARCH_RESULT_TITLE, 1)
 
-        assert self.find(
+        assert self.getInnerText(
             self.locators.FIND_FIRST_SEARCH_RESULT_TITLE
-        ).get_attribute('innerText') == thirdSuggestionText
+        ) == thirdSuggestionText
 
         self.waitUntilInvisible(self.locators.GET_THIRD_SEARCH_SUGGESTION, 1)

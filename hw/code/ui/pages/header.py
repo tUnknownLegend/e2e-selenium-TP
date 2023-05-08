@@ -4,9 +4,12 @@ from ui.locators.catalog_locators import CatalogLocators
 
 
 class Header(BasePage):
-    url = 'https://www.reazon.ru/'
 
-    locators = HeaderLocators()
+    def __init__(self, driver):
+        super(Header, self).__init__(driver)
+        self.locators = HeaderLocators()
+        self.url = self.domain + self.locators.hrefs.home
+
     categoryLocators = CatalogLocators()
 
     def findLoginPageButton(self):
@@ -55,11 +58,11 @@ class Header(BasePage):
             category.click()
             self.waitUntilInvisible(self.locators.GET_CATEGORIES_CONTAINER, 1)
 
-            assert self.find(
-                self.categoryLocators.GET_CATEGORY_NAME).get_attribute(
-                'innerText') == category.get_attribute('innerText')
+            assert self.getInnerText(
+                self.categoryLocators.GET_CATEGORY_NAME
+            ) == category.get_attribute('innerText')
 
             self.find(self.locators.OPEN_CATEGORY_SELECTOR_BUTTON).click()
 
     def findLogo(self):
-        assert self.find(self.locators.GET_LOGO).get_attribute('href') == '/'
+        assert self.getHref(self.locators.GET_LOGO) == '/'

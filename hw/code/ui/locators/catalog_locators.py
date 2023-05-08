@@ -1,8 +1,11 @@
 from selenium.webdriver.common.by import By
+from ui.locators.base_locators import BaseLocators
 
 
-class CatalogLocators():
+class CatalogLocators(BaseLocators):
 
-    GET_CATEGORY_NAME = (
-        By.XPATH, '//div[@id="catalog_content"]' +
-        '/div[@class="catalog__category-name text-normal-huge"]')
+    def __init__(self):
+        super(CatalogLocators, self).__init__()
+        self.GET_CATEGORY_NAME = (
+            By.XPATH, '//div[@id="catalog_content"]' +
+            '/div[@class="catalog__category-name text-normal-huge"]')

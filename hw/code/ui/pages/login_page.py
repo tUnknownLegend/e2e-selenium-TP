@@ -3,11 +3,14 @@ from ui.locators.login_locators import LoginPageLocators
 
 
 class LoginPage(BasePage):
-    url = 'https://www.reazon.ru/login'
     email = 'basetest@example.com'
     pwd = 'ka@ld34o(12Cafk'
 
     locators = LoginPageLocators()
+
+    def __init__(self, driver):
+        super(LoginPage, self).__init__(driver)
+        self.url = self.domain + self.locators.hrefs.login
 
     def login(self):
         email_field = self.find(
