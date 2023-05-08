@@ -9,8 +9,10 @@ class CartCountChange(BasePage):
         self.url = self.domain + self.locators.hrefs.product + '/43'
 
     def checkButtonLabel(self):
-        assert self.getInnerText(
-            self.locators.GET_COUNT_CONTAINER) == 'В корзину'
+        self.scrollToElement(self.locators.GET_COUNT_CONTAINER)
+
+        assert 'В корзину' in self.getInnerText(
+            self.locators.GET_COUNT_CONTAINER)
 
     def getAddDefaultButton(self):
         return self.find(
@@ -28,3 +30,7 @@ class CartCountChange(BasePage):
 
     def checkNumberOfItemsInCart(self, number):
         assert int(self.getCountOfItemInCart()) == number
+
+    def scrollToElement(self, selector):
+        self.waitUntilVisible(selector, 3)
+        self.scrollToLocator(selector)

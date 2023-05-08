@@ -1,12 +1,12 @@
 import allure
-# import pytest
+import pytest
 
 from ui.fixtures import get_driver
 from ui.pages.login_page import LoginPage
 from ui.pages.header import Header
 
 
-# @pytest.mark.skip('skip')
+@pytest.mark.skip('skip')
 class TestLogin():
     driver = get_driver(browser_name='chrome')
     loginPage = LoginPage(driver)

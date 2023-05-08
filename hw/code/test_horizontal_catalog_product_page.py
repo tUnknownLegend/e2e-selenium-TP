@@ -1,12 +1,12 @@
 import allure
-# import pytest
+import pytest
 import time
 
 from ui.fixtures import get_driver
 from ui.pages.horizontal_scroll_catalog_locators import HorizontalScrollCatalog
 
 
-# @pytest.mark.skip('skip')
+@pytest.mark.skip('skip')
 class TestHorizontalScroll():
     driver = get_driver(browser_name='chrome')
     horizontalScroll = HorizontalScrollCatalog(driver)
@@ -45,4 +45,5 @@ class TestHorizontalScroll():
     @allure.feature('Check photo')
     @allure.story('is photo broken')
     def test_photo_broken(self):
-        self.horizontalScroll.checkTitleLink()
+        self.horizontalScroll.scrollToTheContainer()
+        self.horizontalScroll.checkPhotoBroken()

@@ -6,5 +6,9 @@ class FavouritesLocators(BaseLocators):
     def __init__(self):
         super(FavouritesLocators, self).__init__()
 
-    def GET_FIRST_PRODUCT_BY_HREF(self, id): return (
-        By.XPATH, f'//a[@href="{self.hrefs.product}/{id}"]')
+    def GET_FIRST_PRODUCT_BY_HREF(self, href): return (
+        By.XPATH, f'//a[@href="{href}"]')
+
+    UNAUTH_CONTAINER = (
+        By.ID, 'content-unAuth-page-redirect'
+    )

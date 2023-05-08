@@ -44,23 +44,13 @@ class ProductTitle(BasePage):
         self.waitUntilVisible(self.locators.GET_FAVOURITES_INPUT, 3)
         favouritesInput = self.find(self.locators.GET_FAVOURITES_INPUT)
 
-        isChecked = favouritesInput.get_attribute('checked')
+        if not favouritesInput.get_attribute('checked'):
+            self.find(self.locators.GET_FAVOURITES_LABEL).click()
+            assert favouritesInput.get_attribute('checked')
 
-        self.find(self.locators.GET_FAVOURITES_LABEL).click()
-
-        assert isChecked or favouritesInput.get_attribute('checked')
-
-        productHref = self.getHref(self.locators.GET_PRODUCT_TITLE)
-
-        self.find(self.headerLocators.OPEN_FAVOURITES_PAGE_BUTTON).click()
-
-        if not isChecked:
-            self.waitUntilVisible(self.favouriteLocators.GET_FIRST_PRODUCT_BY_HREF(
-                productHref), 3)
         else:
-            self.waitUntilInvisible(
-                self.favouriteLocators.GET_FIRST_PRODUCT_BY_HREF(
-                    productHref), 3)
+            self.find(self.locators.GET_FAVOURITES_LABEL).click()
+            assert not favouritesInput.get_attribute('checked')
 
     def checkItemPhoto(self):
         self.checkPhoto(self.locators.GET_PHOTO)

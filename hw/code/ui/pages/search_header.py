@@ -54,7 +54,7 @@ class SearchHeader(BasePage):
     def checkSearchSuggestions(self):
         searchInput = self.find(self.locators.SEARCH_INPUT)
         searchInput.clear()
-        searchInput.send_keys('iph')
+        searchInput.send_keys('iphone')
 
         self.waitUntilVisible(
             self.locators.GET_THIRD_SEARCH_SUGGESTION, 1)

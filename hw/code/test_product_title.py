@@ -44,7 +44,8 @@ class TestProductTitle():
         with allure.step('go back to product page'):
             self.productPage.render_page()
 
-        with allure.step('authFavourites'):
+        with allure.step('authFavourites check and unchecked'):
+            self.productPage.authFavourites()
             self.productPage.authFavourites()
 
     @allure.feature('Check photo')

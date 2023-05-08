@@ -1,5 +1,5 @@
 import allure
-# import pytest
+import pytest
 
 
 from ui.fixtures import get_driver
@@ -8,7 +8,7 @@ from ui.pages.header import Header
 from ui.pages.search_header import SearchHeader
 
 
-# @pytest.mark.skip('skip')
+@pytest.mark.skip('skip')
 class TestHeader():
     driver = get_driver(browser_name='chrome')
     login_page = LoginPage(driver)

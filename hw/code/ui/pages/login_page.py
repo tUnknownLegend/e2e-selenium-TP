@@ -15,6 +15,9 @@ class LoginPage(BasePage):
         self.url = self.domain + self.locators.hrefs.login
 
     def login(self):
+        self.waitUntilVisible(
+            self.locators.EMAIL_INPUT_LOGIN_PAGE, 2)
+
         email_field = self.find(
             self.locators.EMAIL_INPUT_LOGIN_PAGE)
 
