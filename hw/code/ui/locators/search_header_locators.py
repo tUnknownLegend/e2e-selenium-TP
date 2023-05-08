@@ -15,7 +15,8 @@ class SearchHeaderLocators(BaseLocators):
         self.FIND_FIRST_SEARCH_RESULT_TITLE = (
             By.XPATH, '//div[@id="items-block"]/div[@class="catalog-item-card"][1]' +
             '/div[@class="catalog-item-card__description-block"]' +
-            '/div[@id="catalog_item-title-block"]')
+            '/div[@id="catalog_item-title-block"]' +
+            '/a[@id="catalog_item-title"]')
 
         self.GET_THIRD_SEARCH_SUGGESTION = (By.ID, 'search-suggestion:2')
 

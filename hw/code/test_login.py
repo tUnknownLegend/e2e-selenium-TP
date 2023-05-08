@@ -9,16 +9,18 @@ from ui.pages.header import Header
 # @pytest.mark.skip('skip')
 class TestLogin():
     driver = get_driver(browser_name='chrome')
-    login_page = LoginPage(driver)
+    loginPage = LoginPage(driver)
+    header = Header(driver)
 
     @allure.feature('Test Login')
     @allure.story('Login')
+    @loginPage.render_decorator
     def test_login(self):
-        self.login_page.render_page()
+        with allure.step('findLoginPageButton'):
+            self.header.findLoginPageButton()
 
-        header = Header(self.driver)
-        header.findLoginPageButton()
+        with allure.step('login'):
+            self.loginPage.login()
 
-        self.login_page.login()
-
-        header.findUserPageButton()
+        with allure.step('findUserPageButton'):
+            self.header.findUserPageButton()

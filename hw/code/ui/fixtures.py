@@ -1,10 +1,9 @@
 import pytest
+import allure
 
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.firefox import GeckoDriverManager
-from ui.pages.base_page import BasePage
-from ui.pages.login_page import LoginPage
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.firefox.service import Service as FirefoxService
@@ -58,14 +57,12 @@ def all_drivers(config, request):
     browser = get_driver(request.param)
     browser.get(url)
     yield browser
+
+    if request.node.rep_call.failed:
+        browser.execute_script("document.body.bgColor = 'white';")
+
+        allure.attach(browser.get_screenshot_as_png(),
+                      name=request.function.__name__,
+                      attachment_type=allure.attachment_type.PNG)
+
     browser.quit()
-
-
-@pytest.fixture
-def base_page(driver):
-    return BasePage(driver=driver)
-
-
-@pytest.fixture
-def main_page(driver):
-    return LoginPage(driver=driver)

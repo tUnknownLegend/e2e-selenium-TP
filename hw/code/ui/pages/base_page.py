@@ -49,6 +49,14 @@ class BasePage(object):
         return self.wait(timeout).until(
             EC.presence_of_element_located(locator))
 
+    def scrollToLocator(self, locator):
+        element = self.driver.find_element(locator[0], locator[1])
+        self.actions.scroll_to_element(element).perform()
+        self.scrollByAmount(int(element.size['height']))
+
+    def scrollByAmount(self, amount):
+        self.actions.scroll_by_amount(0, amount).perform()
+
     def hover(self, element):
         self.actions.move_to_element(element).perform()
 
@@ -68,10 +76,22 @@ class BasePage(object):
         self.waitUntilInvisible(self.baseLocators.HEADER_ERROR_MESSAGE, 6)
 
     def getTabTitle(self):
-        return self.driver.getTitle()
+        return self.driver.title
 
     def getInnerText(self, selector):
         return self.find(selector).get_attribute('innerText')
 
     def getHref(self, selector):
         return self.find(selector).get_attribute('href')
+
+    def getSrc(self, selector):
+        return self.find(selector).get_attribute('src')
+
+    def waitUntilClickableElement(self, selector):
+        self.wait(3).until(EC.element_to_be_clickable(selector))
+
+    def checkPhoto(self, selector):
+        photoURL = self.getSrc(selector)
+
+        self.render(photoURL)
+        self.is_opened(photoURL)
