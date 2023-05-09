@@ -39,7 +39,7 @@ class CreateComment(BasePage):
 
     def selectRating(self, index):
         self.scrollToLocator(self.locators.COMMENT_BLOCK_TITLE)
-        self.waitUntilClickableElement(self.locators.SELECT_STAR(index), 3)
+        self.waitUntilClickableElement(self.locators.SELECT_STAR(index))
         self.find(self.locators.SELECT_STAR(index)).click()
 
     def checkSendComment(self):

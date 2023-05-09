@@ -39,9 +39,7 @@ class BasePage(object):
             func(newSelf)
         return wrapper
 
-    def wait(self, timeout=None):
-        if timeout is None:
-            timeout = 5
+    def wait(self, timeout=5):
         return WebDriverWait(self.driver, timeout=timeout)
 
     def find(self, locator, timeout=10):
@@ -60,10 +58,10 @@ class BasePage(object):
     def hover(self, element):
         self.actions.move_to_element(element).perform()
 
-    def waitUntilVisible(self, selector, timeout):
+    def waitUntilVisible(self, selector, timeout=5):
         self.wait(timeout).until(EC.presence_of_element_located(selector))
 
-    def waitUntilInvisible(self, selector, timeout):
+    def waitUntilInvisible(self, selector, timeout=5):
         self.wait(timeout).until(EC.invisibility_of_element_located(selector))
 
     def checkErrorMessage(self, errorMessage):
@@ -87,7 +85,7 @@ class BasePage(object):
     def getSrc(self, selector):
         return self.find(selector).get_attribute('src')
 
-    def waitUntilClickableElement(self, selector, timeout):
+    def waitUntilClickableElement(self, selector, timeout=5):
         self.wait(timeout).until(EC.element_to_be_clickable(selector))
 
     def checkPhoto(self, selector):

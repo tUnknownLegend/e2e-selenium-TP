@@ -30,7 +30,7 @@ class ViewComment(BasePage):
                        self.locators.hrefs.addComment + '/' + id)
 
     def checkTabTitle(self, text):
-        self.waitUntilVisible(self.locators.GET_PRODUCT_NAME, 3)
+        self.waitUntilVisible(self.locators.GET_PRODUCT_NAME)
         assert self.getTabTitle() == self.getInnerText(
             self.locators.GET_PRODUCT_NAME) + text
 
@@ -41,7 +41,7 @@ class ViewComment(BasePage):
         self.render(self.getSrc(self.locators.GET_PHOTO))
 
     def verifyComment(self, pros, cons, other):
-        self.waitUntilVisible(self.locators.COMMENT_CONTENT, 3)
+        self.waitUntilVisible(self.locators.COMMENT_CONTENT)
 
         self.scrollToLocator(self.baseLocators.GET_BY_TEXT(pros))
 

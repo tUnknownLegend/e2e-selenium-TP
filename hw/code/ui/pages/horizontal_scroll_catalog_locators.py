@@ -24,21 +24,23 @@ class HorizontalScrollCatalog(BasePage):
 
     def checkScrollShiftLeft(self):
         self.waitUntilClickableElement(self.locators.GET_ITEM_CONTAINER_BY_INDEX(
-            1, 1), 3)
+            1, 1))
         assert self.getScrollPosition(1) == 0
 
     def checkScrollShiftRight(self):
         self.waitUntilClickableElement(self.locators.GET_ITEM_CONTAINER_BY_INDEX(
-            1, 7), 3)
+            1, 7))
         assert self.getScrollPosition(1) >= self.getItemContainerOffsetHeight(1, 1)
 
     def scrollRight(self):
         scrollRightButton = self.find(self.locators.SCROLL_TO_RIGHT_BUTTON)
         scrollRightButton.click()
+        self.waitUntilClickableElement(self.locators.SCROLL_TO_RIGHT_BUTTON)
 
     def scrollLeft(self):
         scrollLeftButton = self.find(self.locators.SCROLL_TO_LEFT_BUTTON)
         scrollLeftButton.click()
+        self.waitUntilClickableElement(self.locators.SCROLL_TO_LEFT_BUTTON)
 
     def scrollToTheContainer(self, index=1):
         self.scrollToLocator(self.locators.GET_SCROLL_CONTAINER(index))

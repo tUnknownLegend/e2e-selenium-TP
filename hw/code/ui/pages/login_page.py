@@ -29,4 +29,4 @@ class LoginPage(BasePage):
 
         self.find(self.locators.SIGN_IN_BUTTON_LOGIN_PAGE).click()
 
-        self.waitUntilVisible(self.homeLocators.GET_CATEGORIES_CONTAINER, 1)
+        self.waitUntilVisible(self.homeLocators.GET_CATEGORIES_CONTAINER)

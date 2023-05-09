@@ -33,9 +33,9 @@ class SearchHeader(BasePage):
     def sendNoResultsRequest(self):
         self.performSearch(
             'aZАя!?()_./-',
-            lambda: self.waitUntilInvisible(self.locators.GET_FIRST_SEARCH_SUGGESTION, 1))
+            lambda: self.waitUntilInvisible(self.locators.GET_FIRST_SEARCH_SUGGESTION))
 
-        self.waitUntilVisible(self.locators.SEARCH_NO_RESULTS_MESSAGE, 3)
+        self.waitUntilVisible(self.locators.SEARCH_NO_RESULTS_MESSAGE)
 
     def checkFirstSearchSuggestion(self):
         assert self.find(
@@ -67,4 +67,4 @@ class SearchHeader(BasePage):
             self.locators.FIND_FIRST_SEARCH_RESULT_TITLE
         ) == thirdSuggestionText
 
-        self.waitUntilInvisible(self.locators.GET_THIRD_SEARCH_SUGGESTION, 1)
+        self.waitUntilInvisible(self.locators.GET_THIRD_SEARCH_SUGGESTION)

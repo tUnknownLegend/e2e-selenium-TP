@@ -13,7 +13,7 @@ class CatalogSelector(BasePage):
         self.url = self.locators.hrefs.domain + self.locators.hrefs.home
 
     def selectHeaderCategory(self):
-        self.waitUntilInvisible(self.locators.GET_CATEGORIES_CONTAINER, 1)
+        self.waitUntilInvisible(self.locators.GET_CATEGORIES_CONTAINER)
 
         self.find(self.locators.OPEN_CATEGORY_SELECTOR_BUTTON).click()
 
@@ -22,7 +22,7 @@ class CatalogSelector(BasePage):
         for index in range(int(categories.get_attribute('childElementCount'))):
             category = self.find(self.locators.CATEGORY_SELECTOR_MENU(index + 1))
             category.click()
-            self.waitUntilInvisible(self.locators.GET_CATEGORIES_CONTAINER, 1)
+            self.waitUntilInvisible(self.locators.GET_CATEGORIES_CONTAINER)
 
             assert self.getInnerText(
                 self.categoryLocators.GET_CATEGORY_NAME
@@ -36,6 +36,6 @@ class CatalogSelector(BasePage):
         for index in range(int(categories.get_attribute('childElementCount'))):
             category = self.find(self.locators.CATEGORY_SELECTOR_MENU(index + 1))
             category.click()
-            self.waitUntilInvisible(self.locators.GET_CATEGORIES_CONTAINER, 1)
+            self.waitUntilInvisible(self.locators.GET_CATEGORIES_CONTAINER)
 
             self.find(self.headerLocators.GET_LOGO).click()
