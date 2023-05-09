@@ -1,5 +1,7 @@
 from ui.pages.base_page import BasePage
 
+import time
+
 
 class CartCountChange(BasePage):
 
@@ -27,6 +29,8 @@ class CartCountChange(BasePage):
         return self.find(self.locators.GET_MINUS_BUTTON)
 
     def getCountOfItemInCart(self):
+        time.sleep(1)
+
         return self.getInnerText(
             self.locators.GET_ITEM_COUNT_IN_CART)
 

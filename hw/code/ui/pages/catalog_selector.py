@@ -1,7 +1,6 @@
 from ui.pages.base_page import BasePage
 from ui.locators.catalog_locators import CatalogLocators
 from ui.locators.header_locators import HeaderLocators
-import time
 
 
 class CatalogSelector(BasePage):

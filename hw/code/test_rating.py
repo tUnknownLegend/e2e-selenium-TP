@@ -5,7 +5,7 @@ from ui.locators.horizontal_scroll_catalog_locators import HorizontalScrollCatal
 import pytest
 
 
-@pytest.mark.skip('skip')
+# @pytest.mark.skip('skip')
 class TestChangeItemCountInCart():
     productTitleRating = CheckRatingButton(ProductTitleLocators)
     recommendationsRating = CheckRatingButton(

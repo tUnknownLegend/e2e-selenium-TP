@@ -4,11 +4,11 @@ from ui.locators.home_locators import HomeLocators
 import pytest
 
 
+# @pytest.mark.skip('skip')
 class TestCategorySelection():
     headerSelector = CatalogSelectorComponent(HeaderLocators)
     homeSelector = CatalogSelectorComponent(HomeLocators)
 
-    @pytest.mark.skip('skip')
     def test_header_category_select(self):
         self.headerSelector.test_is_header_catalog_links()
 

@@ -7,21 +7,26 @@ class CommentTitleLocators():
         self.hrefs = Hrefs()
 
     GET_COUNT_CONTAINER = (
-        By.XPATH, '//div[@id="product-block-button-add-to-cart"]'
+        By.XPATH, '//div[@id="block-button-add-to-cart"]' +
+        '/div[contains(@id, "button-add-to-cart/")]'
     )
 
     GET_PLUS_BUTTON = (
-        By.XPATH, '//button[contains(@id, "button-plus_cart")]'
+        By.XPATH, '//button[contains(@id, "button-plus_cart/")]'
     )
 
     GET_MINUS_BUTTON = (
-        By.XPATH, '//button[contains(@id, "button-minus_cart")]'
+        By.XPATH, '//button[contains(@id, "button-minus_cart/")]'
     )
 
     GET_ITEM_COUNT_IN_CART = (
-        By.XPATH, '//div[@class="add-to-cart-button_amount-selector__amount"]'
+        By.XPATH, '//div[@class="add-to-cart-button_amount-selector__amount"]' +
+        '/span[contains(@id, "amount/")]'
     )
 
     GET_PHOTO = (
-        By.CLASS_NAME, 'product-page-main__photo'
+        By.XPATH, '//div[@class="comment-page-header' +
+        ' content-comment-page-block-background' +
+        ' comment-page-header-main_padding"]' +
+        '/a/img[@class="comment-page-header__photo"]'
     )

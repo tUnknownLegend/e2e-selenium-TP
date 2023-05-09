@@ -6,7 +6,7 @@ from ui.fixtures import get_driver
 from ui.pages.horizontal_scroll_catalog_locators import HorizontalScrollCatalog
 
 
-@pytest.mark.skip('skip')
+# @pytest.mark.skip('skip')
 class TestHorizontalScroll():
     driver = get_driver(browser_name='chrome')
     horizontalScroll = HorizontalScrollCatalog(driver)
@@ -24,7 +24,7 @@ class TestHorizontalScroll():
         with allure.step('scrollRight'):
             self.horizontalScroll.scrollRight()
 
-        time.sleep(2)
+        time.sleep(3)
 
         with allure.step('checkItemsVisibleRight'):
             self.horizontalScroll.checkScrollShiftRight()
@@ -32,7 +32,7 @@ class TestHorizontalScroll():
         with allure.step('scrollLeft'):
             self.horizontalScroll.scrollLeft()
 
-        time.sleep(2)
+        time.sleep(3)
 
         with allure.step('checkItemsVisibleLeft after scroll back and forth'):
             self.horizontalScroll.checkScrollShiftLeft()

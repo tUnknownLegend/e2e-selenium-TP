@@ -6,6 +6,10 @@ class AddCommentLocators():
     def __init__(self):
         self.hrefs = Hrefs()
 
+    COMMENT_BLOCK_TITLE = (
+        By.CLASS_NAME, 'comment-page-main__header-name-button'
+    )
+
     GET_COUNT_CONTAINER = (
         By.XPATH, '//div[@id="product-block-button-add-to-cart"]'
     )
@@ -25,3 +29,29 @@ class AddCommentLocators():
     GET_PHOTO = (
         By.CLASS_NAME, 'product-page-main__photo'
     )
+
+    SUBMIT_COMMENT_BUTTON = (
+        By.XPATH, '//button[@id="add-comment-page__submit"]'
+    )
+
+    UNAUTH_LOGIN_LINK = (
+        By.XPATH, '//div[@id="content-unAuth-page-redirect"]' +
+        '/a'
+    )
+
+    COMMENT_CONS = (
+        By.ID, 'textarea_cons-filed'
+    )
+
+    COMMENT_PROS = (
+        By.ID, 'textarea_pros-filed'
+    )
+
+    COMMENT_OTHER = (
+        By.ID, 'textarea_comment-filed'
+    )
+
+    def SELECT_STAR(self, index):
+        return (
+            By.XPATH, f'//label[@for="star{index}"]'
+        )

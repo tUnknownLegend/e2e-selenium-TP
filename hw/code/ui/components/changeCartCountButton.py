@@ -44,18 +44,20 @@ class ChangeCartCountButton():
     def test_auth_change_count_buttons(self):
         self.cartCountChange.render_page()
 
-        with allure.step('initial checkButtonLabel'):
-            self.cartCountChange.checkButtonLabel()
-
         with allure.step('login'):
             self.header.findLoginPageButton().click()
             self.loginPage.login()
 
-        with allure.step('initially adds item to cart'):
+        with allure.step('go back to page page'):
             self.cartCountChange.render_page()
+
+        with allure.step('initial checkButtonLabel'):
+            self.cartCountChange.checkButtonLabel()
+
+        with allure.step('initially adds item to cart'):
             self.cartCountChange.getAddDefaultButton().click()
 
-        with allure.step('checks cart count after login'):
+        with allure.step('checks cart count after new added'):
             self.cartCountChange.checkNumberOfItemsInCart(1)
 
         with allure.step('checks if item is is still in cart after reload'):
@@ -69,3 +71,6 @@ class ChangeCartCountButton():
         with allure.step('checks if item successfully deleted from cart after reload'):
             self.cartCountChange.render_page()
             self.cartCountChange.checkButtonLabel()
+
+        with allure.step('logout'):
+            self.header.logout()

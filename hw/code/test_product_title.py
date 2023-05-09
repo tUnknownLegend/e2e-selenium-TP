@@ -7,7 +7,7 @@ from ui.pages.login_page import LoginPage
 from ui.pages.header import Header
 
 
-@pytest.mark.skip('skip')
+# @pytest.mark.skip('skip')
 class TestProductTitle():
     driver = get_driver(browser_name='chrome')
     productPage = ProductTitle(driver)
@@ -47,6 +47,9 @@ class TestProductTitle():
         with allure.step('authFavourites check and unchecked'):
             self.productPage.authFavourites()
             self.productPage.authFavourites()
+
+        with allure.step('logout'):
+            self.header.logout()
 
     @allure.feature('Check photo')
     @allure.story('is photo broken')

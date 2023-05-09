@@ -12,7 +12,8 @@ class Rating(BasePage):
         rating = float(self.getInnerText(self.locators.GET_RATING_NUMBER))
 
         assert int(rating / 10) == 0
-        assert rating * 10 % 1 == 0
+        assert rating * 10 <= 50
+        assert rating * 10 >= 0
 
     def checkLinkInRating(self):
         assert self.locators.hrefs.domain + \

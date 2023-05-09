@@ -6,6 +6,7 @@ from ui.locators.home_locators import HomeLocators
 class LoginPage(BasePage):
     email = 'basetest@example.com'
     pwd = 'ka@ld34o(12Cafk'
+    userName = 'Sheesh'
 
     homeLocators = HomeLocators()
 

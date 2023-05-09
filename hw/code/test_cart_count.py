@@ -27,32 +27,26 @@ class TestChangeItemCountInCart():
 
     homePage = ChangeCartCountButton(
         HomeLocators,
-        baseLocator.hrefs.domain)
+        baseLocator.hrefs.domain + baseLocator.hrefs.home)
 
     recommendationsItemChangeCount = ChangeCartCountButton(
         HorizontalScrollCatalogLocators,
         baseLocator.hrefs.domain + baseLocator.hrefs.product + '/43')
 
-    @pytest.mark.skip('skip')
     def test_product_change_count(self):
         self.productChangeCount.test_unauth_change_count_buttons()
         self.productChangeCount.test_auth_change_count_buttons()
 
-    @pytest.mark.skip('skip')
     def test_product_view_comment_change_count(self):
         self.viewComment.test_unauth_change_count_buttons()
         self.viewComment.test_auth_change_count_buttons()
 
-    @pytest.mark.skip('skip')
     def test_product_add_comment_change_count(self):
-        self.addComment.test_unauth_change_count_buttons()
         self.addComment.test_auth_change_count_buttons()
 
-    @pytest.mark.skip('skip')
     def test_home_page_change_count(self):
         self.homePage.test_unauth_change_count_buttons()
         self.homePage.test_auth_change_count_buttons()
 
-    @pytest.mark.skip('skip')
     def test_recommendation_change_count(self):
         self.recommendationsItemChangeCount.test_unauth_change_count_buttons()

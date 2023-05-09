@@ -7,15 +7,16 @@ class CartCountLocators():
         self.hrefs = Hrefs()
 
     GET_COUNT_CONTAINER = (
-        By.XPATH, '//div[@id="product-block-button-add-to-cart"]'
+        By.XPATH, '//div[@id="block-button-add-to-cart"]' + 
+        '/div[contains(@id, "button-add-to-cart/")]'
     )
 
     GET_PLUS_BUTTON = (
-        By.XPATH, '//button[contains(@id, "button-plus_cart")]'
+        By.XPATH, '//button[contains(@id, "button-plus_cart/")]'
     )
 
     GET_MINUS_BUTTON = (
-        By.XPATH, '//button[contains(@id, "button-minus_cart")]'
+        By.XPATH, '//button[contains(@id, "button-minus_cart/")]'
     )
 
     GET_ITEM_COUNT_IN_CART = (
