@@ -5,7 +5,7 @@ from ui.locators.base_locators import BaseLocators
 from ui.locators.comment_titile_locators import CommentTitleLocators
 from ui.locators.home_locators import HomeLocators
 
-import pytest
+# import pytest
 
 
 # @pytest.mark.skip('skip')

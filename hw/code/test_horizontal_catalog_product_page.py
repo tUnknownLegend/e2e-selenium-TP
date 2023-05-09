@@ -1,12 +1,14 @@
 import allure
-import pytest
 import time
 
 from ui.fixtures import get_driver
 from ui.pages.horizontal_scroll_catalog_locators import HorizontalScrollCatalog
 
+# import pytest
 
 # @pytest.mark.skip('skip')
+
+
 class TestHorizontalScroll():
     driver = get_driver(browser_name='chrome')
     horizontalScroll = HorizontalScrollCatalog(driver)

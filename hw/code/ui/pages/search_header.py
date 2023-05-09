@@ -57,15 +57,11 @@ class SearchHeader(BasePage):
         searchInput.clear()
         searchInput.send_keys('iphone')
 
-        self.waitUntilVisible(
-            self.locators.GET_THIRD_SEARCH_SUGGESTION, 1)
         thirdSearchSuggestion = self.find(
             self.locators.GET_THIRD_SEARCH_SUGGESTION)
 
         thirdSuggestionText = thirdSearchSuggestion.get_attribute('innerText')
         thirdSearchSuggestion.click()
-
-        self.waitUntilVisible(self.locators.FIND_FIRST_SEARCH_RESULT_TITLE, 2)
 
         assert self.getInnerText(
             self.locators.FIND_FIRST_SEARCH_RESULT_TITLE

@@ -41,7 +41,6 @@ class ProductTitle(BasePage):
             self.locators.GET_FAVOURITES_LABEL).get_attribute('checked')
 
     def authFavourites(self):
-        self.waitUntilVisible(self.locators.GET_FAVOURITES_INPUT, 3)
         favouritesInput = self.find(self.locators.GET_FAVOURITES_INPUT)
 
         if not favouritesInput.get_attribute('checked'):

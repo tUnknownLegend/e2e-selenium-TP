@@ -58,11 +58,7 @@ def all_drivers(config, request):
     browser.get(url)
     yield browser
 
-    if request.node.rep_call.failed:
-        browser.execute_script("document.body.bgColor = 'white';")
-
-        allure.attach(browser.get_screenshot_as_png(),
-                      name=request.function.__name__,
-                      attachment_type=allure.attachment_type.PNG)
+    allure.attach(browser.get_screenshot_as_png(),
+                  attachment_type=allure.attachment_type.PNG)
 
     browser.quit()

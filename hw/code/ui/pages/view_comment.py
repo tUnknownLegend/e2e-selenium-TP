@@ -19,7 +19,6 @@ class ViewComment(BasePage):
         self.checkErrorMessage('Вы уже создали отзыв об этом товаре')
 
     def getAddCommentButton(self):
-        self.waitUntilVisible(self.locators.ADD_COMMENT_BUTTON, 1)
         return self.find(self.locators.ADD_COMMENT_BUTTON)
 
     def checkUnauthAddComment(self):

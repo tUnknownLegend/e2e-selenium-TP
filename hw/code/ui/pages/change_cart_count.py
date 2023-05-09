@@ -17,8 +17,6 @@ class CartCountChange(BasePage):
             self.locators.GET_COUNT_CONTAINER)
 
     def getAddDefaultButton(self):
-        self.waitUntilVisible(
-            self.locators.GET_COUNT_CONTAINER, 3)
         return self.find(
             self.locators.GET_COUNT_CONTAINER)
 

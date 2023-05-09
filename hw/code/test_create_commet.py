@@ -1,14 +1,15 @@
 import allure
-import pytest
-
 from ui.fixtures import get_driver
 from ui.pages.view_comment import ViewComment
 from ui.pages.create_review_page import CreateComment
 from ui.pages.login_page import LoginPage
 from ui.pages.header import Header
 
+# import pytest
 
 # @pytest.mark.skip('skip')
+
+
 class TestCreateComment():
     driver = get_driver(browser_name='chrome')
     viewComment = ViewComment(driver)
