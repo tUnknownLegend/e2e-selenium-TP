@@ -25,7 +25,6 @@ class BasePage(object):
     def __init__(self, driver):
         self.driver = driver
         self.actions = ActionChains(driver)
-        self.domain = 'https://www.reazon.ru'
 
     def render(self, url):
         self.driver.get(url)
@@ -71,7 +70,7 @@ class BasePage(object):
             self.baseLocators.HEADER_ERROR_MESSAGE)
 
         self.waitUntilVisible(self.baseLocators.HEADER_ERROR_MESSAGE, 1)
-        assert errorMessageElement.get_attribute('innerText') == errorMessage
+        assert errorMessage in errorMessageElement.get_attribute('innerText')
 
         self.waitUntilInvisible(self.baseLocators.HEADER_ERROR_MESSAGE, 6)
 

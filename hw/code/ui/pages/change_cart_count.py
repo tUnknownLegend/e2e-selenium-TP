@@ -3,10 +3,10 @@ from ui.pages.base_page import BasePage
 
 class CartCountChange(BasePage):
 
-    def __init__(self, driver, selectors):
+    def __init__(self, driver, selectors, url):
         super(CartCountChange, self).__init__(driver)
         self.locators = selectors
-        self.url = self.domain + self.locators.hrefs.product + '/43'
+        self.url = url
 
     def checkButtonLabel(self):
         self.scrollToElement(self.locators.GET_COUNT_CONTAINER)
@@ -15,6 +15,8 @@ class CartCountChange(BasePage):
             self.locators.GET_COUNT_CONTAINER)
 
     def getAddDefaultButton(self):
+        self.waitUntilVisible(
+            self.locators.GET_COUNT_CONTAINER, 3)
         return self.find(
             self.locators.GET_COUNT_CONTAINER)
 

@@ -13,7 +13,7 @@ class ProductTitle(BasePage):
     def __init__(self, driver):
         super(ProductTitle, self).__init__(driver)
         self.locators = ProductTitleLocators()
-        self.url = self.domain + self.locators.hrefs.product + '/43'
+        self.url = self.locators.hrefs.domain + self.locators.hrefs.product + '/43'
 
     def checkTabTitle(self):
         self.getTabTitle() == self.getInnerText(

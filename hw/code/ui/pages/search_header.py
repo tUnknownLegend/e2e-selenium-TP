@@ -11,7 +11,7 @@ class SearchHeader(BasePage):
     def __init__(self, driver):
         super(SearchHeader, self).__init__(driver)
         self.locators = SearchHeaderLocators()
-        self.url = self.domain + self.locators.hrefs.home
+        self.url = self.locators.hrefs.domain + self.locators.hrefs.home
 
     def _noop():
         pass
@@ -44,7 +44,8 @@ class SearchHeader(BasePage):
     def checkPhoneCategory(self):
         self.performSearch(
             'т', self.checkFirstSearchSuggestion)
-        self.is_opened(f'{self.domain}{self.locators.hrefs.category}/phones')
+        self.is_opened(
+            f'{self.locators.hrefs.domain}{self.locators.hrefs.category}/phones')
 
     def checkProhibitedSymbolsSearch(self):
         self.performSearch("<img src onerror=alert(1) />")

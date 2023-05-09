@@ -12,7 +12,7 @@ class LoginPage(BasePage):
     def __init__(self, driver):
         super(LoginPage, self).__init__(driver)
         self.locators = LoginPageLocators()
-        self.url = self.domain + self.locators.hrefs.login
+        self.url = self.locators.hrefs.domain + self.locators.hrefs.login
 
     def login(self):
         self.waitUntilVisible(
@@ -31,4 +31,4 @@ class LoginPage(BasePage):
 
         self.find(self.locators.SIGN_IN_BUTTON_LOGIN_PAGE).click()
 
-        self.waitUntilVisible(self.homeLocators.HOME_CATEGORIES, 1)
+        self.waitUntilVisible(self.homeLocators.GET_CATEGORIES_CONTAINER, 1)

@@ -8,4 +8,6 @@ class Hrefs():
     logout = '/logout'
     category = '/category'
     comment = '/comment'
+    addComment = '/addcomment'
     home = '/'
+    domain = 'https://www.reazon.ru'

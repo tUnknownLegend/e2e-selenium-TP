@@ -6,6 +6,8 @@ class CatalogLocators(BaseLocators):
 
     def __init__(self):
         super(CatalogLocators, self).__init__()
-        self.GET_CATEGORY_NAME = (
-            By.XPATH, '//div[@id="catalog_content"]' +
-            '/div[@class="catalog__category-name text-normal-huge"]')
+
+    GET_CATEGORY_NAME = (
+        By.XPATH, '//div[@id="catalog_content"]' +
+        '/div[@class="catalog__category-name text-normal-huge"]'
+    )

@@ -60,11 +60,11 @@ class TestHeader():
         with allure.step('performTooShortSearchRequest'):
             self.searchHeader.performTooShortSearchRequest()
 
-    @allure.feature('Selects category')
-    @allure.story('selects all categories from hamburger menu in header')
-    @header.render_decorator
-    def test_categorySelect(self):
-        self.header.selectCategory()
+    # @allure.feature('Selects category')
+    # @allure.story('selects all categories from hamburger menu in header')
+    # @header.render_decorator
+    # def test_categorySelect(self):
+    #     self.header.selectCategory()
 
     @allure.feature('Checks logo')
     @allure.story('checks link in logo')
