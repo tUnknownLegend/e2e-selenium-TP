@@ -77,3 +77,6 @@ class BasePage(object):
 
     def find(self, locator, timeout=default_timeout):
             return self.wait(timeout).until(EC.presence_of_element_located(locator))
+    
+    def waitUntilVisible(self, selector, timeout=5):
+        self.wait(timeout).until(EC.presence_of_element_located(selector))
