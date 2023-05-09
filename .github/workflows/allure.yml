@@ -5,9 +5,9 @@ permissions:
 
 on:
   pull_request:
-    branches: [ main, base ]
+    branches: [ main ]
   push:
-    branches: [ main, base ]
+    branches: [ main ]
 
 jobs:
   autotests:
