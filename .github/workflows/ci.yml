@@ -30,4 +30,4 @@ jobs:
         run: make run-linter
 
       - name: Run pytest
-        run: make run-local-tests
+        run: make run-tests
