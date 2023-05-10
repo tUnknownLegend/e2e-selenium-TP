@@ -1,11 +1,12 @@
 from ui.pages.base_page import BasePage
 from ui.locators.login_locators import LoginPageLocators
 from ui.locators.home_locators import HomeLocators
+import os
 
 
 class LoginPage(BasePage):
-    email = 'basetest@example.com'
-    pwd = 'ka@ld34o(12Cafk'
+    email = os.getenv('LOGIN_A')
+    pwd = os.getenv('PWD_A')
     userName = 'Sheesh'
 
     homeLocators = HomeLocators()

@@ -25,11 +25,13 @@ class HorizontalScrollCatalog(BasePage):
     def checkScrollShiftLeft(self):
         self.waitUntilClickableElement(self.locators.GET_ITEM_CONTAINER_BY_INDEX(
             1, 1))
+
         assert self.getScrollPosition(1) == 0
 
     def checkScrollShiftRight(self):
         self.waitUntilClickableElement(self.locators.GET_ITEM_CONTAINER_BY_INDEX(
             1, 7))
+
         assert self.getScrollPosition(1) >= self.getItemContainerOffsetHeight(1, 1)
 
     def scrollRight(self):
@@ -46,6 +48,7 @@ class HorizontalScrollCatalog(BasePage):
         self.scrollToLocator(self.locators.GET_SCROLL_CONTAINER(index))
 
     def checkTitleLink(self):
+        self.waitUntilVisible(self.locators.GET_ITEM_TITLE, 5)
         assert self.locators.hrefs.product in self.getHref(self.locators.GET_ITEM_TITLE)
 
     def checkPhotoBroken(self):

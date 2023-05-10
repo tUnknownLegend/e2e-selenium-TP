@@ -9,4 +9,7 @@ run-local-tests:
 
 show-results-allure:
 	allure serve /allure-results
+
+set-env:
+	set -a && source .env && set +a
 	

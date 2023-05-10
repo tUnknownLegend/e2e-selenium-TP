@@ -1,5 +1,4 @@
 import pytest
-import allure
 
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
@@ -20,6 +19,11 @@ def _options(headless=False):
     options.add_argument("--disable-setuid-sandbox")
     options.add_argument("--disable-webgl")
     options.add_argument("--disable-popup-blocking")
+    options.add_argument('--no-proxy-server')
+    options.add_argument("--disable-extensions")
+    options.set_capability(
+        "goog:loggingPrefs", {"performance": "ALL", "browser": "ALL"}
+    )
     options.page_load_strategy = 'normal'
 
     if headless:
@@ -57,8 +61,5 @@ def all_drivers(config, request):
     browser = get_driver(request.param)
     browser.get(url)
     yield browser
-
-    allure.attach(browser.get_screenshot_as_png(),
-                  attachment_type=allure.attachment_type.PNG)
 
     browser.quit()

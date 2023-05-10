@@ -26,7 +26,7 @@ class TestHorizontalScroll():
         with allure.step('scrollRight'):
             self.horizontalScroll.scrollRight()
 
-        time.sleep(3)
+        time.sleep(5)
 
         with allure.step('checkItemsVisibleRight'):
             self.horizontalScroll.checkScrollShiftRight()
@@ -34,7 +34,7 @@ class TestHorizontalScroll():
         with allure.step('scrollLeft'):
             self.horizontalScroll.scrollLeft()
 
-        time.sleep(3)
+        time.sleep(5)
 
         with allure.step('checkItemsVisibleLeft after scroll back and forth'):
             self.horizontalScroll.checkScrollShiftLeft()
