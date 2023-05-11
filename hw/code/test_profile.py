@@ -2,6 +2,10 @@ import pytest
 from ui.pages.profile_page import ProfilePage
 from ui.base_case.base_case import BaseCase
 from ui.pages.login_page import LoginPage
+from ui.locators.locators import LoginLocators
+
+import time
+
 import os
 
 
@@ -52,6 +56,22 @@ class TestProfile(BaseCase):
         assert self.page.get_attribute(
             self.page.locators.USER_AVATAR, 'src') != (
             'https://www.reazon.ru/img/UserPhoto.webp/')
+
+        self.page.click(self.page.locators.USER_AVATAR)
+        self.page.click(self.page.locators.DELETE_AVATAR_BUTTON)
+
+    def test_change_avatar_with_refresh(self):
+        self.loginPage.loginProfile()
+        img_input = self.page.find(self.page.locators.CHANGE_AVATAR_INPUT)
+        img_input.send_keys(os.getcwd() + '/hw/code/ui/prikol.jpg')
+
+        first_src = self.page.get_attribute(
+            self.page.locators.USER_AVATAR, 'src')
+
+        self.page.refresh()
+
+        assert self.page.get_attribute(
+            self.page.locators.USER_AVATAR, 'src') != 'https://www.reazon.ru/img/UserPhoto.webp/'
 
         self.page.click(self.page.locators.USER_AVATAR)
         self.page.click(self.page.locators.DELETE_AVATAR_BUTTON)
@@ -109,6 +129,29 @@ class TestProfile(BaseCase):
         assert self.page.get_attribute(
             self.page.locators.VALIDATION_RESULT_MSG, 'innerText') == (
             'Неверный формат почты')
+
+    def test_change_email_correct_str(self):
+        self.loginPage.loginProfile()
+
+        self.page.click(self.page.locators.CHANGE_EMAIL_BUTTON)
+
+        new_email = 'new@new'
+
+        input = self.page.find(self.page.locators.CHANGE_EMAIL_INPUT)
+        input.send_keys(new_email)
+        self.page.click(self.page.locators.USER_INFO_POPUP_APPLY_BUTTON)
+
+        self.page.refresh()
+        current_email = self.page.get_attribute(
+            self.page.locators.EMAIL_STRING, 'innerText').strip()
+        self.page.refresh()
+
+        self.page.click(self.page.locators.CHANGE_EMAIL_BUTTON)
+        input = self.page.find(self.page.locators.CHANGE_EMAIL_INPUT)
+        input.send_keys('basetest@example.com')
+        self.page.click(self.page.locators.USER_INFO_POPUP_APPLY_BUTTON)
+
+        assert current_email == new_email
 
     def test_change_phone_empty_str(self):
         self.loginPage.loginProfile()
@@ -240,3 +283,185 @@ class TestProfile(BaseCase):
 
         assert self.page.get_attribute(
             self.page.locators.SERVER_ERROR_MSG, 'innerText') == 'Старый пароль не верный'
+
+    def test_change_password_correct_str(self):
+        self.loginPage.loginProfile()
+        self.page.change_password(BaseCase.PASSWORD_PROFILE, '123456')
+
+        self.page.logout()
+        self.loginPage.header.findLoginPageButton().click()
+        self.loginPage.loginData(BaseCase.EMAIL_PROFILE, BaseCase.PASSWORD_PROFILE)
+
+        errorMsg = self.page.get_attribute(
+            self.page.locators.VALIDATION_RESULT_MSG, 'innerText')
+
+        default_password = BaseCase.PASSWORD_PROFILE
+        BaseCase.PASSWORD_PROFILE = '123456'
+
+        self.loginPage.loginProfile()
+        BaseCase.PASSWORD_PROFILE = default_password
+        self.page.change_password('123456', BaseCase.PASSWORD_PROFILE)
+
+        assert errorMsg == 'Неверная почта или пароль'
+
+    def test_payment_card_correct_params(self):
+        self.loginPage.loginProfile()
+
+        self.page.click(self.page.locators.ADD_PAYMENT_CARD)
+        self.page.send_keys(self.page.locators.PAYMENT_CARD_NUMBER_INPUT, '1111222233334444')
+        self.page.send_keys(self.page.locators.PAYMENT_CARD_MONTH_INPUT, '02')
+        self.page.send_keys(self.page.locators.PAYMENT_CARD_YEAR_INPUT, '30')
+        self.page.send_keys(self.page.locators.PAYMENT_CARD_CVC_INPUT, '123')
+
+        self.page.find(self.page.locators.PAYMENT_CARD_APPLY_BUTTON).click()
+
+        assert self.page.get_attribute(
+            self.page.locators.PAYMENT_CARD_NUMBER, 'innerText') == '1111222233334444'
+
+        self.page.click(self.page.locators.PAYMENT_CARD_NUMBER)
+        self.page.click(self.page.locators.DELETE_PAYMENT_CARD)
+
+    def test_payment_card_incorrect_params_number(self):
+        self.loginPage.loginProfile()
+
+        self.page.click(self.page.locators.ADD_PAYMENT_CARD)
+        self.page.send_keys(self.page.locators.PAYMENT_CARD_NUMBER_INPUT, '1')
+
+        self.page.find(self.page.locators.PAYMENT_CARD_APPLY_BUTTON).click()
+
+        assert self.page.get_attribute(
+            self.page.locators.SERVER_ERROR_MSG, 'innerText') == 'Номер карты состоит из 16 цифр. 1/16'
+
+    def test_payment_card_incorrect_params_date(self):
+        self.loginPage.loginProfile()
+
+        self.page.click(self.page.locators.ADD_PAYMENT_CARD)
+        self.page.send_keys(self.page.locators.PAYMENT_CARD_NUMBER_INPUT, '1111222233334444')
+        self.page.send_keys(self.page.locators.PAYMENT_CARD_MONTH_INPUT, '02')
+        self.page.send_keys(self.page.locators.PAYMENT_CARD_YEAR_INPUT, '2020')
+        self.page.find(self.page.locators.PAYMENT_CARD_APPLY_BUTTON).click()
+
+        assert self.page.get_attribute(
+            self.page.locators.SERVER_ERROR_MSG, 'innerText').strip() == 'Срок действия карты истек'
+
+    def test_payment_card_incorrect_params_date_expiration(self):
+        self.loginPage.loginProfile()
+
+        self.page.click(self.page.locators.ADD_PAYMENT_CARD)
+        self.page.send_keys(self.page.locators.PAYMENT_CARD_NUMBER_INPUT, '1111222233334444')
+
+        self.page.find(self.page.locators.PAYMENT_CARD_APPLY_BUTTON).click()
+
+        assert self.page.get_attribute(
+            self.page.locators.SERVER_ERROR_MSG, 'innerText').strip() == 'Срок действия карты формата 09/25'
+
+    def test_payment_card_incorrect_params_date_wrong_month(self):
+        self.loginPage.loginProfile()
+
+        self.page.click(self.page.locators.ADD_PAYMENT_CARD)
+        self.page.send_keys(self.page.locators.PAYMENT_CARD_NUMBER_INPUT, '1111222233334444')
+        self.page.send_keys(self.page.locators.PAYMENT_CARD_MONTH_INPUT, '15')
+        self.page.send_keys(self.page.locators.PAYMENT_CARD_YEAR_INPUT, '30')
+
+        self.page.find(self.page.locators.PAYMENT_CARD_APPLY_BUTTON).click()
+
+        assert self.page.get_attribute(
+            self.page.locators.SERVER_ERROR_MSG, 'innerText').strip() == 'Месяц не может быть больше 12'
+
+    def test_payment_card_incorrect_params_cvc(self):
+        self.loginPage.loginProfile()
+
+        self.page.click(self.page.locators.ADD_PAYMENT_CARD)
+        self.page.send_keys(self.page.locators.PAYMENT_CARD_NUMBER_INPUT, '1111222233334444')
+        self.page.send_keys(self.page.locators.PAYMENT_CARD_MONTH_INPUT, '10')
+        self.page.send_keys(self.page.locators.PAYMENT_CARD_YEAR_INPUT, '30')
+        self.page.send_keys(self.page.locators.PAYMENT_CARD_CVC_INPUT, '0')
+        self.page.find(self.page.locators.PAYMENT_CARD_APPLY_BUTTON).click()
+
+        assert self.page.get_attribute(
+            self.page.locators.SERVER_ERROR_MSG, 'innerText').strip() == 'CVC код содержит 3 цифры'
+
+    def test_address_card_correct_params_with_flat(self):
+        self.loginPage.loginProfile()
+
+        self.page.click(self.page.locators.ADD_ADDRESS_CARD)
+        self.page.send_keys(self.page.locators.ADDRESS_CARD_CITY_INPUT, 'Moscow')
+        self.page.send_keys(self.page.locators.ADDRESS_CARD_STREET_INPUT, 'Red Square')
+        self.page.send_keys(self.page.locators.ADDRESS_CARD_HOUSE_INPUT, '1')
+        self.page.click(self.page.locators.ADDRESS_CARD_APPLY_BUTTON)
+
+        assert self.page.get_attribute(
+            self.page.locators.ADDRESS_CARD_STREET_TEXT, 'innerText') == 'Red Square'
+
+        self.page.click(self.page.locators.ADDRESS_CARD)
+        self.page.click(self.page.locators.DELETE_ADDRESS_CARD)
+
+    def test_address_card_correct_params_without_flat(self):
+        self.loginPage.loginProfile()
+
+        self.page.click(self.page.locators.ADD_ADDRESS_CARD)
+        self.page.send_keys(self.page.locators.ADDRESS_CARD_CITY_INPUT, 'Moscow')
+        self.page.send_keys(self.page.locators.ADDRESS_CARD_STREET_INPUT, 'Red Square')
+        self.page.send_keys(self.page.locators.ADDRESS_CARD_HOUSE_INPUT, '1')
+        self.page.send_keys(self.page.locators.ADDRESS_CARD_FLAT_INPUT, '15')
+        self.page.click(self.page.locators.ADDRESS_CARD_APPLY_BUTTON)
+
+        assert self.page.get_attribute(
+            self.page.locators.ADDRESS_CARD_STREET_TEXT, 'innerText') == 'Red Square'
+
+        self.page.click(self.page.locators.ADDRESS_CARD)
+        self.page.click(self.page.locators.DELETE_ADDRESS_CARD)
+
+    def test_address_card_incorrect_params_city(self):
+        self.loginPage.loginProfile()
+
+        self.page.click(self.page.locators.ADD_ADDRESS_CARD)
+        self.page.click(self.page.locators.ADDRESS_CARD_APPLY_BUTTON)
+
+        assert self.page.get_attribute(
+            self.page.locators.SERVER_ERROR_MSG, 'innerText').strip() == 'Введите ваш город'
+
+    def test_address_card_incorrect_params_street(self):
+        self.loginPage.loginProfile()
+
+        self.page.click(self.page.locators.ADD_ADDRESS_CARD)
+        self.page.send_keys(self.page.locators.ADDRESS_CARD_CITY_INPUT, 'Moscow')
+        self.page.click(self.page.locators.ADDRESS_CARD_APPLY_BUTTON)
+
+        assert self.page.get_attribute(
+            self.page.locators.SERVER_ERROR_MSG, 'innerText').strip() == 'Введите вашу улицу'
+
+    def test_address_card_incorrect_params_house(self):
+        self.loginPage.loginProfile()
+
+        self.page.click(self.page.locators.ADD_ADDRESS_CARD)
+        self.page.send_keys(self.page.locators.ADDRESS_CARD_CITY_INPUT, 'Moscow')
+        self.page.send_keys(self.page.locators.ADDRESS_CARD_STREET_INPUT, 'Red Square')
+        self.page.click(self.page.locators.ADDRESS_CARD_APPLY_BUTTON)
+
+        assert self.page.get_attribute(
+            self.page.locators.SERVER_ERROR_MSG, 'innerText').strip() == 'Введите ваш дом'
+
+    def test_address_card_edit_params(self):
+        self.loginPage.loginProfile()
+
+        self.page.click(self.page.locators.ADD_ADDRESS_CARD)
+        self.page.send_keys(self.page.locators.ADDRESS_CARD_CITY_INPUT, 'Moscow')
+        self.page.send_keys(
+            self.page.locators.ADDRESS_CARD_STREET_INPUT, 'Red Square')
+        self.page.send_keys(self.page.locators.ADDRESS_CARD_HOUSE_INPUT, '1')
+        self.page.send_keys(self.page.locators.ADDRESS_CARD_FLAT_INPUT, '15')
+        self.page.click(self.page.locators.ADDRESS_CARD_APPLY_BUTTON)
+
+        self.page.click(self.page.locators.ADDRESS_CARD)
+        self.page.click(self.page.locators.EDIT_ADDRESS_CARD)
+        self.page.find(self.page.locators.ADDRESS_CARD_STREET_INPUT).clear()
+        self.page.send_keys(
+            self.page.locators.ADDRESS_CARD_STREET_INPUT, 'Arbat street')
+        self.page.click(self.page.locators.ADDRESS_CARD_APPLY_BUTTON)
+
+        assert self.page.get_attribute(
+            self.page.locators.ADDRESS_CARD_STREET_TEXT, 'innerText') == 'Arbat street'
+
+        self.page.click(self.page.locators.ADDRESS_CARD)
+        self.page.click(self.page.locators.DELETE_ADDRESS_CARD)
