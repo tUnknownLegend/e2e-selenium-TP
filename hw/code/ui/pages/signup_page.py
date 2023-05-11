@@ -2,8 +2,9 @@ from ui.pages.base_page import BasePage
 from ui.locators.signup_locators import SignupPageLocators
 from ui.locators.home_locators import HomeLocators
 
+
 class SignupPage(BasePage):
-    
+
     homeLocators = HomeLocators()
 
     def __init__(self, driver):

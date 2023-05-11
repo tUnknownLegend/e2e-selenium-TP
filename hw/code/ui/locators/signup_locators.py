@@ -6,17 +6,16 @@ class SignupPageLocators(BaseLocators):
     def __init__(self):
         super(SignupPageLocators, self).__init__()
 
-        self.USERNAME_INPUT_SIGNUP_PAGE = (By.NAME, 'username')
+    USERNAME_INPUT_SIGNUP_PAGE = (By.NAME, 'username')
 
-        self.EMAIL_INPUT_SIGNUP_PAGE = (By.NAME, 'email')
+    EMAIL_INPUT_SIGNUP_PAGE = (By.NAME, 'email')
 
-        self.PASSWORD_INPUT_SIGNUP_PAGE = (By.NAME, 'password')
+    PASSWORD_INPUT_SIGNUP_PAGE = (By.NAME, 'password')
 
-        self.REPEAT_PASSWORD_INPUT_SIGNUP_PAGE = (By.NAME, 'repeatPassword')
+    REPEAT_PASSWORD_INPUT_SIGNUP_PAGE = (By.NAME, 'repeatPassword')
 
+    SIGN_UP_BUTTON_SIGNUP_PAGE = (By.ID, 'submit-result')
 
-        self.SIGN_UP_BUTTON_SIGNUP_PAGE = (By.ID, 'submit-result')
+    ERROR = (By.ID, 'error-text')
 
-        self.ERROR = (By.ID, 'error-text')
-
-        self.SIGNIN_LINK = (By.LINK_TEXT, 'Войти')
+    SIGNIN_LINK = (By.LINK_TEXT, 'Войти')

@@ -12,3 +12,5 @@ class Hrefs():
     addComment = '/addcomment'
     home = '/'
     domain = 'https://www.reazon.ru'
+    phones = '/phones'
+    search = '/search'

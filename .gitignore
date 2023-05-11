@@ -1,2 +1,5 @@
-help.txt
+.vscode
 __pycache__
+.pytest_cache
+allure-results
+help.txt

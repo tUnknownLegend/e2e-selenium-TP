@@ -21,7 +21,7 @@ def _options(headless=False):
     options.add_argument("--disable-popup-blocking")
     options.add_argument('--no-proxy-server')
     options.add_argument("--disable-extensions")
-    options.add_argument("--remote-debugging-port=9222") 
+    options.add_argument("--remote-debugging-port=9222")
     options.set_capability(
         "goog:loggingPrefs", {"performance": "ALL", "browser": "ALL"}
     )
@@ -53,14 +53,12 @@ def get_driver(browser_name):
         browser.set_window_size(1920, 1080)
     else:
         browser.maximize_window()
+
     return browser
 
 
-@pytest.fixture(scope='session', params=['chrome', 'firefox'])
-def all_drivers(config, request):
-    url = config['url']
-    browser = get_driver(request.param)
-    browser.get(url)
-    yield browser
-
-    browser.quit()
+@pytest.fixture()
+def driver(browser_config):
+    driver = get_driver(browser_config)
+    yield driver
+    driver.quit()
