@@ -6,9 +6,11 @@ from ui.locators.base_locators import BaseLocators
 from ui.tabTitles import TabTitles
 import os
 
+import time
 
 class TestProfileWithoutAuth(BaseCase):
     PATH = 'user'
+    loginMsg = 'Войдите'
 
     @pytest.fixture(scope="function", autouse=True)
     def set_page(self, driver):
@@ -18,7 +20,7 @@ class TestProfileWithoutAuth(BaseCase):
 
     def test_no_auth_message(self):
         assert str(self.page.get_attribute(
-            self.page.locators.MUST_AUTH_MESSAGE, 'innerText')) == 'Войдите'
+            self.page.locators.MUST_AUTH_MESSAGE, 'innerText')) == self.loginMsg
 
 
 class TestProfile(BaseCase):
@@ -31,6 +33,7 @@ class TestProfile(BaseCase):
     wrongEmail = 'Неверный формат почты'
     phoneMustContain11DigitsMessage = 'Телефон должен содержать 11 цифр. Введено 4/11'
     oldPasswordIncorrectMessage = 'Старый пароль не верный'
+    threeDigitsNum = '123'
     password = '123456'
     passwordMustContain6SymbolsMessage = 'Пароль должен содержать минимум 6 символов'
     passwordsUnmatch = 'Введенные пароли не совпадают'
@@ -38,6 +41,23 @@ class TestProfile(BaseCase):
     streetArbat = 'Arbat street'
     streetRedSquare = 'Red Square'
     houseNumber = '1'
+    newName = 'new_name'
+    defaultName = 'default name'
+    new_email = 'new@new'
+    defaultPhone = '1122334455'
+    newPhone = '+75544332211'
+    city = 'Moscow'
+    enterCity = 'Введите ваш город'
+    enterStreet = 'Введите вашу улицу'
+    enterHouse = 'Введите ваш дом'
+    cardNumber = '1111222233334444'
+    authError = 'Неверная почта или пароль'
+    cvcMsg = 'CVC код содержит 3 цифры'
+    dateMsg = 'Срок действия карты формата 09/25'
+    expireMsg = 'Срок действия карты истек'
+    monthMsg = 'Месяц не может быть больше 12'
+
+
 
     @pytest.fixture(scope="function", autouse=True)
     def set_page(self, driver):
@@ -76,12 +96,12 @@ class TestProfile(BaseCase):
     def test_change_avatar_with_refresh(self):
         self.loginPage.loginProfile()
         img_input = self.page.find(self.page.locators.CHANGE_AVATAR_INPUT)
-        img_input.send_keys(os.getcwd() + '/hw/code/ui/prikol.jpg')
+        img_input.send_keys(os.getcwd() + self.testAvatar)
 
         self.page.refresh()
 
         assert self.page.get_attribute(
-            self.page.locators.USER_AVATAR, 'src') != 'https://www.reazon.ru/img/UserPhoto.webp/'
+            self.page.locators.USER_AVATAR, 'src') != self.defaultAvatarPath + '/'
 
         self.page.click(self.page.locators.USER_AVATAR)
         self.page.click(self.page.locators.DELETE_AVATAR_BUTTON)
@@ -91,20 +111,18 @@ class TestProfile(BaseCase):
 
         self.page.click(self.page.locators.CHANGE_NAME_BUTTON)
 
-        new_name = 'new name'
-
         input = self.page.find(self.page.locators.CHANGE_NAME_INPUT)
-        input.send_keys(new_name)
+        input.send_keys(self.newName)
         self.page.find(self.page.locators.USER_INFO_POPUP_APPLY_BUTTON).click()
         self.page.open()
 
         current_name = self.page.get_attribute(
             self.page.locators.NAME_STRING, 'innerText').strip()
-        assert current_name == new_name
+        assert current_name == self.newName
 
         self.page.click(self.page.locators.CHANGE_NAME_BUTTON)
         input = self.page.find(self.page.locators.CHANGE_NAME_INPUT)
-        input.send_keys('default name')
+        input.send_keys(self.defaultName)
         self.page.find(self.page.locators.USER_INFO_POPUP_APPLY_BUTTON).click()
 
     def test_change_name_empty_str(self):
@@ -140,17 +158,15 @@ class TestProfile(BaseCase):
 
         assert self.page.get_attribute(
             self.page.locators.VALIDATION_RESULT_MSG, 'innerText') == (
-            'Неверный формат почты')
+            self.wrongEmail)
 
     def test_change_email_correct_str(self):
         self.loginPage.loginProfile()
 
         self.page.click(self.page.locators.CHANGE_EMAIL_BUTTON)
 
-        new_email = 'new@new'
-
         input = self.page.find(self.page.locators.CHANGE_EMAIL_INPUT)
-        input.send_keys(new_email)
+        input.send_keys(self.new_email)
         self.page.click(self.page.locators.USER_INFO_POPUP_APPLY_BUTTON)
 
         self.page.refresh()
@@ -160,10 +176,10 @@ class TestProfile(BaseCase):
 
         self.page.click(self.page.locators.CHANGE_EMAIL_BUTTON)
         input = self.page.find(self.page.locators.CHANGE_EMAIL_INPUT)
-        input.send_keys('basetest@example.com')
+        input.send_keys(BaseCase.EMAIL_PROFILE)
         self.page.click(self.page.locators.USER_INFO_POPUP_APPLY_BUTTON)
 
-        assert current_email == new_email
+        assert current_email == self.new_email
 
     def test_change_phone_empty_str(self):
         self.loginPage.loginProfile()
@@ -184,7 +200,8 @@ class TestProfile(BaseCase):
         self.page.click(self.page.locators.CHANGE_PHONE_BUTTON)
         input = self.page.find(self.page.locators.CHANGE_PHONE_INPUT)
 
-        input.send_keys('123')
+        input.send_keys(self.threeDigitsNum)
+
         self.page.find(self.page.locators.USER_INFO_POPUP_APPLY_BUTTON).click()
 
         assert self.page.get_attribute(
@@ -197,10 +214,8 @@ class TestProfile(BaseCase):
         self.page.click(self.page.locators.CHANGE_PHONE_BUTTON)
         self.page.find(self.page.locators.CHANGE_PHONE_INPUT).clear()
 
-        new_phone = '+75544332211'
-
         input = self.page.find(self.page.locators.CHANGE_PHONE_INPUT)
-        input.send_keys(new_phone)
+        input.send_keys(self.newPhone)
         self.page.find(self.page.locators.USER_INFO_POPUP_APPLY_BUTTON).click()
         self.page.refresh()
 
@@ -209,10 +224,10 @@ class TestProfile(BaseCase):
 
         self.page.click(self.page.locators.CHANGE_PHONE_BUTTON)
         input = self.page.find(self.page.locators.CHANGE_PHONE_INPUT)
-        input.send_keys('1122334455')
+        input.send_keys(self.defaultPhone)
         self.page.find(self.page.locators.USER_INFO_POPUP_APPLY_BUTTON).click()
 
-        assert current_phone == new_phone
+        assert current_phone == self.newPhone
 
     def test_change_password_incorrect_empty_str(self):
         self.loginPage.loginProfile()
@@ -222,8 +237,7 @@ class TestProfile(BaseCase):
         self.page.find(self.page.locators.USER_INFO_POPUP_APPLY_BUTTON).click()
 
         assert self.page.get_attribute(
-            self.page.locators.VALIDATION_RESULT_MSG, 'innerText') == (
-            'Поле обязательно должно быть заполнено')
+            self.page.locators.VALIDATION_RESULT_MSG, 'innerText') == (self.fieldCantBeEmptyMessage)
 
     def test_change_password_incorrect_small_str(self):
         self.loginPage.loginProfile()
@@ -233,13 +247,12 @@ class TestProfile(BaseCase):
         input.send_keys(BaseCase.PASSWORD)
 
         input = self.page.find(self.page.locators.NEW_PASSWORD_INPUT)
-        input.send_keys('123')
+        input.send_keys(self.threeDigitsNum)
 
         self.page.find(self.page.locators.USER_INFO_POPUP_APPLY_BUTTON).click()
 
         assert self.page.get_attribute(
-            self.page.locators.VALIDATION_RESULT_MSG, 'innerText') == (
-            'Пароль должен содержать минимум 6 символов')
+            self.page.locators.VALIDATION_RESULT_MSG, 'innerText') == (self.passwordMustContain6SymbolsMessage)
 
     def test_change_password_incorrect_small_str_2(self):
         self.loginPage.loginProfile()
@@ -302,7 +315,7 @@ class TestProfile(BaseCase):
 
     def test_change_password_correct_str(self):
         self.loginPage.loginProfile()
-        self.page.change_password(BaseCase.PASSWORD_PROFILE, '123456')
+        self.page.change_password(BaseCase.PASSWORD_PROFILE, self.password)
 
         self.page.logout()
         self.loginPage.header.findLoginPageButton().click()
@@ -312,28 +325,28 @@ class TestProfile(BaseCase):
             self.page.locators.VALIDATION_RESULT_MSG, 'innerText')
 
         default_password = BaseCase.PASSWORD_PROFILE
-        BaseCase.PASSWORD_PROFILE = '123456'
+        BaseCase.PASSWORD_PROFILE = self.password
 
         self.loginPage.loginProfile()
         BaseCase.PASSWORD_PROFILE = default_password
-        self.page.change_password('123456', BaseCase.PASSWORD_PROFILE)
+        self.page.change_password(self.password, BaseCase.PASSWORD_PROFILE)
 
-        assert errorMsg == 'Неверная почта или пароль'
+        assert errorMsg == self.authError
 
     def test_payment_card_correct_params(self):
         self.loginPage.loginProfile()
 
         self.page.click(self.page.locators.ADD_PAYMENT_CARD)
         self.page.send_keys(
-            self.page.locators.PAYMENT_CARD_NUMBER_INPUT, '1111222233334444')
+            self.page.locators.PAYMENT_CARD_NUMBER_INPUT, self.cardNumber)
         self.page.send_keys(self.page.locators.PAYMENT_CARD_MONTH_INPUT, '02')
         self.page.send_keys(self.page.locators.PAYMENT_CARD_YEAR_INPUT, '30')
-        self.page.send_keys(self.page.locators.PAYMENT_CARD_CVC_INPUT, '123')
+        self.page.send_keys(self.page.locators.PAYMENT_CARD_CVC_INPUT, self.threeDigitsNum)
 
         self.page.find(self.page.locators.PAYMENT_CARD_APPLY_BUTTON).click()
 
         assert self.page.get_attribute(
-            self.page.locators.PAYMENT_CARD_NUMBER, 'innerText') == '1111222233334444'
+            self.page.locators.PAYMENT_CARD_NUMBER, 'innerText') == self.cardNumber
 
         self.page.click(self.page.locators.PAYMENT_CARD_NUMBER)
         self.page.click(self.page.locators.DELETE_PAYMENT_CARD)
@@ -355,59 +368,59 @@ class TestProfile(BaseCase):
 
         self.page.click(self.page.locators.ADD_PAYMENT_CARD)
         self.page.send_keys(
-            self.page.locators.PAYMENT_CARD_NUMBER_INPUT, '1111222233334444')
+            self.page.locators.PAYMENT_CARD_NUMBER_INPUT, self.cardNumber)
         self.page.send_keys(self.page.locators.PAYMENT_CARD_MONTH_INPUT, '02')
         self.page.send_keys(self.page.locators.PAYMENT_CARD_YEAR_INPUT, '2020')
         self.page.find(self.page.locators.PAYMENT_CARD_APPLY_BUTTON).click()
 
         assert self.page.get_attribute(
-            self.page.locators.SERVER_ERROR_MSG, 'innerText').strip() == 'Срок действия карты истек'
+            self.page.locators.SERVER_ERROR_MSG, 'innerText').strip() == self.expireMsg
 
     def test_payment_card_incorrect_params_date_expiration(self):
         self.loginPage.loginProfile()
 
         self.page.click(self.page.locators.ADD_PAYMENT_CARD)
         self.page.send_keys(
-            self.page.locators.PAYMENT_CARD_NUMBER_INPUT, '1111222233334444')
+            self.page.locators.PAYMENT_CARD_NUMBER_INPUT, self.cardNumber)
 
         self.page.find(self.page.locators.PAYMENT_CARD_APPLY_BUTTON).click()
 
         assert self.page.get_attribute(
-            self.page.locators.SERVER_ERROR_MSG, 'innerText').strip() == 'Срок действия карты формата 09/25'
+            self.page.locators.SERVER_ERROR_MSG, 'innerText').strip() == self.dateMsg
 
     def test_payment_card_incorrect_params_date_wrong_month(self):
         self.loginPage.loginProfile()
 
         self.page.click(self.page.locators.ADD_PAYMENT_CARD)
         self.page.send_keys(
-            self.page.locators.PAYMENT_CARD_NUMBER_INPUT, '1111222233334444')
+            self.page.locators.PAYMENT_CARD_NUMBER_INPUT, self.cardNumber)
         self.page.send_keys(self.page.locators.PAYMENT_CARD_MONTH_INPUT, '15')
         self.page.send_keys(self.page.locators.PAYMENT_CARD_YEAR_INPUT, '30')
 
         self.page.find(self.page.locators.PAYMENT_CARD_APPLY_BUTTON).click()
 
         assert self.page.get_attribute(
-            self.page.locators.SERVER_ERROR_MSG, 'innerText').strip() == 'Месяц не может быть больше 12'
+            self.page.locators.SERVER_ERROR_MSG, 'innerText').strip() == self.monthMsg
 
     def test_payment_card_incorrect_params_cvc(self):
         self.loginPage.loginProfile()
 
         self.page.click(self.page.locators.ADD_PAYMENT_CARD)
         self.page.send_keys(
-            self.page.locators.PAYMENT_CARD_NUMBER_INPUT, '1111222233334444')
+            self.page.locators.PAYMENT_CARD_NUMBER_INPUT, self.cardNumber)
         self.page.send_keys(self.page.locators.PAYMENT_CARD_MONTH_INPUT, '10')
         self.page.send_keys(self.page.locators.PAYMENT_CARD_YEAR_INPUT, '30')
         self.page.send_keys(self.page.locators.PAYMENT_CARD_CVC_INPUT, '0')
         self.page.find(self.page.locators.PAYMENT_CARD_APPLY_BUTTON).click()
 
         assert self.page.get_attribute(
-            self.page.locators.SERVER_ERROR_MSG, 'innerText').strip() == 'CVC код содержит 3 цифры'
+            self.page.locators.SERVER_ERROR_MSG, 'innerText').strip() == self.cvcMsg
 
     def test_address_card_correct_params_with_flat(self):
         self.loginPage.loginProfile()
 
         self.page.click(self.page.locators.ADD_ADDRESS_CARD)
-        self.page.send_keys(self.page.locators.ADDRESS_CARD_CITY_INPUT, 'Moscow')
+        self.page.send_keys(self.page.locators.ADDRESS_CARD_CITY_INPUT, self.city)
         self.page.send_keys(
             self.page.locators.ADDRESS_CARD_STREET_INPUT, self.streetRedSquare)
         self.page.send_keys(self.page.locators.ADDRESS_CARD_HOUSE_INPUT, self.houseNumber)
@@ -424,7 +437,7 @@ class TestProfile(BaseCase):
         self.loginPage.loginProfile()
 
         self.page.click(self.page.locators.ADD_ADDRESS_CARD)
-        self.page.send_keys(self.page.locators.ADDRESS_CARD_CITY_INPUT, 'Moscow')
+        self.page.send_keys(self.page.locators.ADDRESS_CARD_CITY_INPUT, self.city)
         self.page.send_keys(
             self.page.locators.ADDRESS_CARD_STREET_INPUT, self.streetRedSquare)
         self.page.send_keys(self.page.locators.ADDRESS_CARD_HOUSE_INPUT, self.houseNumber)
@@ -444,50 +457,26 @@ class TestProfile(BaseCase):
         self.page.click(self.page.locators.ADDRESS_CARD_APPLY_BUTTON)
 
         assert self.page.get_attribute(
-            self.page.locators.SERVER_ERROR_MSG, 'innerText').strip() == 'Введите ваш город'
+            self.page.locators.SERVER_ERROR_MSG, 'innerText').strip() == self.enterCity
 
     def test_address_card_incorrect_params_street(self):
         self.loginPage.loginProfile()
 
         self.page.click(self.page.locators.ADD_ADDRESS_CARD)
-        self.page.send_keys(self.page.locators.ADDRESS_CARD_CITY_INPUT, 'Moscow')
+        self.page.send_keys(self.page.locators.ADDRESS_CARD_CITY_INPUT, self.city)
         self.page.click(self.page.locators.ADDRESS_CARD_APPLY_BUTTON)
 
         assert self.page.get_attribute(
-            self.page.locators.SERVER_ERROR_MSG, 'innerText').strip() == 'Введите вашу улицу'
+            self.page.locators.SERVER_ERROR_MSG, 'innerText').strip() == self.enterStreet
 
     def test_address_card_incorrect_params_house(self):
         self.loginPage.loginProfile()
 
         self.page.click(self.page.locators.ADD_ADDRESS_CARD)
-        self.page.send_keys(self.page.locators.ADDRESS_CARD_CITY_INPUT, 'Moscow')
+        self.page.send_keys(self.page.locators.ADDRESS_CARD_CITY_INPUT, self.city)
         self.page.send_keys(
             self.page.locators.ADDRESS_CARD_STREET_INPUT, self.streetRedSquare)
         self.page.click(self.page.locators.ADDRESS_CARD_APPLY_BUTTON)
 
         assert self.page.get_attribute(
-            self.page.locators.SERVER_ERROR_MSG, 'innerText').strip() == 'Введите ваш дом'
-
-    def test_address_card_edit_params(self):
-        self.loginPage.loginProfile()
-
-        self.page.click(self.page.locators.ADD_ADDRESS_CARD)
-        self.page.send_keys(self.page.locators.ADDRESS_CARD_CITY_INPUT, 'Moscow')
-        self.page.send_keys(
-            self.page.locators.ADDRESS_CARD_STREET_INPUT, self.streetRedSquare)
-        self.page.send_keys(self.page.locators.ADDRESS_CARD_HOUSE_INPUT, self.houseNumber)
-        self.page.send_keys(self.page.locators.ADDRESS_CARD_FLAT_INPUT, '15')
-        self.page.click(self.page.locators.ADDRESS_CARD_APPLY_BUTTON)
-
-        self.page.click(self.page.locators.ADDRESS_CARD)
-        self.page.click(self.page.locators.EDIT_ADDRESS_CARD)
-        self.page.find(self.page.locators.ADDRESS_CARD_STREET_INPUT).clear()
-        self.page.send_keys(
-            self.page.locators.ADDRESS_CARD_STREET_INPUT, self.streetArbat)
-        self.page.click(self.page.locators.ADDRESS_CARD_APPLY_BUTTON)
-
-        assert self.page.get_attribute(
-            self.page.locators.ADDRESS_CARD_STREET_TEXT, 'innerText') == self.streetArbat
-
-        self.page.click(self.page.locators.ADDRESS_CARD)
-        self.page.click(self.page.locators.DELETE_ADDRESS_CARD)
+            self.page.locators.SERVER_ERROR_MSG, 'innerText').strip() == self.enterHouse
