@@ -2,6 +2,7 @@ from ui.pages.base_page import BasePage
 
 
 class CartCountChange(BasePage):
+    defaultAddToCartButtonText = 'В корзину'
 
     def __init__(self, driver, selectors, url):
         super(CartCountChange, self).__init__(driver)
@@ -11,7 +12,7 @@ class CartCountChange(BasePage):
     def checkButtonLabel(self):
         self.scrollToElement(self.locators.GET_COUNT_CONTAINER)
 
-        assert 'В корзину' in self.getInnerText(
+        assert self.defaultAddToCartButtonText in self.getInnerText(
             self.locators.GET_COUNT_CONTAINER)
 
     def getAddDefaultButton(self):

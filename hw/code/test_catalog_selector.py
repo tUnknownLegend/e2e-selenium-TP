@@ -2,10 +2,7 @@ from ui.components.catalog_selector import CatalogSelectorComponent
 from ui.locators.header_locators import HeaderLocators
 from ui.locators.home_locators import HomeLocators
 
-# import pytest
 
-
-# @pytest.mark.skip('skip')
 class TestCategorySelection():
     headerSelector = CatalogSelectorComponent(HeaderLocators)
     homeSelector = CatalogSelectorComponent(HomeLocators)

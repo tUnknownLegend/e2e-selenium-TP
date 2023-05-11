@@ -2,17 +2,14 @@ from ui.components.catalog_components import CatalogComponent
 from ui.locators.base_locators import BaseLocators
 from ui.locators.catalog_locators import CatalogLocators
 
-# import pytest
 
-
-# @pytest.mark.skip('skip')
 class TestCategorySelection():
     baseLocators = BaseLocators()
 
     search = CatalogComponent(
         CatalogLocators,
         baseLocators.hrefs.domain + baseLocators.hrefs.search
-        + '?q=iphone')
+        + baseLocators.hrefs.defaultSearchQuery)
 
     category = CatalogComponent(
         CatalogLocators,

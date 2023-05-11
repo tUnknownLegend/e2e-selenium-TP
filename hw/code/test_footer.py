@@ -2,10 +2,7 @@ import allure
 from ui.fixtures import get_driver
 from ui.pages.footer import Footer
 
-# import pytest
 
-
-# @pytest.mark.skip('skip')
 class TestFooter():
     driver = get_driver(browser_name='chrome')
     footer = Footer(driver)
