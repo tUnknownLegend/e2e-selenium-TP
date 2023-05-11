@@ -35,6 +35,10 @@ class TestProfile(BaseCase):
     passwordMustContain6SymbolsMessage = 'Пароль должен содержать минимум 6 символов'
     passwordsUnmatch = 'Введенные пароли не совпадают'
 
+    streetArbat = 'Arbat street'
+    streetRedSquare = 'Red Square'
+    houseNumber = '1'
+
     @pytest.fixture(scope="function", autouse=True)
     def set_page(self, driver):
         self.driver = driver
@@ -73,9 +77,6 @@ class TestProfile(BaseCase):
         self.loginPage.loginProfile()
         img_input = self.page.find(self.page.locators.CHANGE_AVATAR_INPUT)
         img_input.send_keys(os.getcwd() + '/hw/code/ui/prikol.jpg')
-
-        first_src = self.page.get_attribute(
-            self.page.locators.USER_AVATAR, 'src')
 
         self.page.refresh()
 
@@ -294,7 +295,7 @@ class TestProfile(BaseCase):
         input.send_keys(self.password)
 
         self.page.find(self.page.locators.USER_INFO_POPUP_APPLY_BUTTON).click()
-        
+
         assert self.page.get_attribute(self.page.locators.SERVER_ERROR_MSG, 'innerText') == (
             self.oldPasswordIncorrectMessage
         )
@@ -323,7 +324,8 @@ class TestProfile(BaseCase):
         self.loginPage.loginProfile()
 
         self.page.click(self.page.locators.ADD_PAYMENT_CARD)
-        self.page.send_keys(self.page.locators.PAYMENT_CARD_NUMBER_INPUT, '1111222233334444')
+        self.page.send_keys(
+            self.page.locators.PAYMENT_CARD_NUMBER_INPUT, '1111222233334444')
         self.page.send_keys(self.page.locators.PAYMENT_CARD_MONTH_INPUT, '02')
         self.page.send_keys(self.page.locators.PAYMENT_CARD_YEAR_INPUT, '30')
         self.page.send_keys(self.page.locators.PAYMENT_CARD_CVC_INPUT, '123')
@@ -340,7 +342,8 @@ class TestProfile(BaseCase):
         self.loginPage.loginProfile()
 
         self.page.click(self.page.locators.ADD_PAYMENT_CARD)
-        self.page.send_keys(self.page.locators.PAYMENT_CARD_NUMBER_INPUT, '1')
+        self.page.send_keys(
+            self.page.locators.PAYMENT_CARD_NUMBER_INPUT, self.houseNumber)
 
         self.page.find(self.page.locators.PAYMENT_CARD_APPLY_BUTTON).click()
 
@@ -351,7 +354,8 @@ class TestProfile(BaseCase):
         self.loginPage.loginProfile()
 
         self.page.click(self.page.locators.ADD_PAYMENT_CARD)
-        self.page.send_keys(self.page.locators.PAYMENT_CARD_NUMBER_INPUT, '1111222233334444')
+        self.page.send_keys(
+            self.page.locators.PAYMENT_CARD_NUMBER_INPUT, '1111222233334444')
         self.page.send_keys(self.page.locators.PAYMENT_CARD_MONTH_INPUT, '02')
         self.page.send_keys(self.page.locators.PAYMENT_CARD_YEAR_INPUT, '2020')
         self.page.find(self.page.locators.PAYMENT_CARD_APPLY_BUTTON).click()
@@ -363,7 +367,8 @@ class TestProfile(BaseCase):
         self.loginPage.loginProfile()
 
         self.page.click(self.page.locators.ADD_PAYMENT_CARD)
-        self.page.send_keys(self.page.locators.PAYMENT_CARD_NUMBER_INPUT, '1111222233334444')
+        self.page.send_keys(
+            self.page.locators.PAYMENT_CARD_NUMBER_INPUT, '1111222233334444')
 
         self.page.find(self.page.locators.PAYMENT_CARD_APPLY_BUTTON).click()
 
@@ -374,7 +379,8 @@ class TestProfile(BaseCase):
         self.loginPage.loginProfile()
 
         self.page.click(self.page.locators.ADD_PAYMENT_CARD)
-        self.page.send_keys(self.page.locators.PAYMENT_CARD_NUMBER_INPUT, '1111222233334444')
+        self.page.send_keys(
+            self.page.locators.PAYMENT_CARD_NUMBER_INPUT, '1111222233334444')
         self.page.send_keys(self.page.locators.PAYMENT_CARD_MONTH_INPUT, '15')
         self.page.send_keys(self.page.locators.PAYMENT_CARD_YEAR_INPUT, '30')
 
@@ -387,7 +393,8 @@ class TestProfile(BaseCase):
         self.loginPage.loginProfile()
 
         self.page.click(self.page.locators.ADD_PAYMENT_CARD)
-        self.page.send_keys(self.page.locators.PAYMENT_CARD_NUMBER_INPUT, '1111222233334444')
+        self.page.send_keys(
+            self.page.locators.PAYMENT_CARD_NUMBER_INPUT, '1111222233334444')
         self.page.send_keys(self.page.locators.PAYMENT_CARD_MONTH_INPUT, '10')
         self.page.send_keys(self.page.locators.PAYMENT_CARD_YEAR_INPUT, '30')
         self.page.send_keys(self.page.locators.PAYMENT_CARD_CVC_INPUT, '0')
@@ -401,12 +408,14 @@ class TestProfile(BaseCase):
 
         self.page.click(self.page.locators.ADD_ADDRESS_CARD)
         self.page.send_keys(self.page.locators.ADDRESS_CARD_CITY_INPUT, 'Moscow')
-        self.page.send_keys(self.page.locators.ADDRESS_CARD_STREET_INPUT, 'Red Square')
-        self.page.send_keys(self.page.locators.ADDRESS_CARD_HOUSE_INPUT, '1')
+        self.page.send_keys(
+            self.page.locators.ADDRESS_CARD_STREET_INPUT, self.streetRedSquare)
+        self.page.send_keys(self.page.locators.ADDRESS_CARD_HOUSE_INPUT, self.houseNumber)
         self.page.click(self.page.locators.ADDRESS_CARD_APPLY_BUTTON)
 
         assert self.page.get_attribute(
-            self.page.locators.ADDRESS_CARD_STREET_TEXT, 'innerText') == 'Red Square'
+            self.page.locators.ADDRESS_CARD_STREET_TEXT, 'innerText') == (
+            self.streetRedSquare)
 
         self.page.click(self.page.locators.ADDRESS_CARD)
         self.page.click(self.page.locators.DELETE_ADDRESS_CARD)
@@ -416,13 +425,14 @@ class TestProfile(BaseCase):
 
         self.page.click(self.page.locators.ADD_ADDRESS_CARD)
         self.page.send_keys(self.page.locators.ADDRESS_CARD_CITY_INPUT, 'Moscow')
-        self.page.send_keys(self.page.locators.ADDRESS_CARD_STREET_INPUT, 'Red Square')
-        self.page.send_keys(self.page.locators.ADDRESS_CARD_HOUSE_INPUT, '1')
+        self.page.send_keys(
+            self.page.locators.ADDRESS_CARD_STREET_INPUT, self.streetRedSquare)
+        self.page.send_keys(self.page.locators.ADDRESS_CARD_HOUSE_INPUT, self.houseNumber)
         self.page.send_keys(self.page.locators.ADDRESS_CARD_FLAT_INPUT, '15')
         self.page.click(self.page.locators.ADDRESS_CARD_APPLY_BUTTON)
 
         assert self.page.get_attribute(
-            self.page.locators.ADDRESS_CARD_STREET_TEXT, 'innerText') == 'Red Square'
+            self.page.locators.ADDRESS_CARD_STREET_TEXT, 'innerText') == self.streetRedSquare
 
         self.page.click(self.page.locators.ADDRESS_CARD)
         self.page.click(self.page.locators.DELETE_ADDRESS_CARD)
@@ -451,7 +461,8 @@ class TestProfile(BaseCase):
 
         self.page.click(self.page.locators.ADD_ADDRESS_CARD)
         self.page.send_keys(self.page.locators.ADDRESS_CARD_CITY_INPUT, 'Moscow')
-        self.page.send_keys(self.page.locators.ADDRESS_CARD_STREET_INPUT, 'Red Square')
+        self.page.send_keys(
+            self.page.locators.ADDRESS_CARD_STREET_INPUT, self.streetRedSquare)
         self.page.click(self.page.locators.ADDRESS_CARD_APPLY_BUTTON)
 
         assert self.page.get_attribute(
@@ -463,8 +474,8 @@ class TestProfile(BaseCase):
         self.page.click(self.page.locators.ADD_ADDRESS_CARD)
         self.page.send_keys(self.page.locators.ADDRESS_CARD_CITY_INPUT, 'Moscow')
         self.page.send_keys(
-            self.page.locators.ADDRESS_CARD_STREET_INPUT, 'Red Square')
-        self.page.send_keys(self.page.locators.ADDRESS_CARD_HOUSE_INPUT, '1')
+            self.page.locators.ADDRESS_CARD_STREET_INPUT, self.streetRedSquare)
+        self.page.send_keys(self.page.locators.ADDRESS_CARD_HOUSE_INPUT, self.houseNumber)
         self.page.send_keys(self.page.locators.ADDRESS_CARD_FLAT_INPUT, '15')
         self.page.click(self.page.locators.ADDRESS_CARD_APPLY_BUTTON)
 
@@ -472,11 +483,11 @@ class TestProfile(BaseCase):
         self.page.click(self.page.locators.EDIT_ADDRESS_CARD)
         self.page.find(self.page.locators.ADDRESS_CARD_STREET_INPUT).clear()
         self.page.send_keys(
-            self.page.locators.ADDRESS_CARD_STREET_INPUT, 'Arbat street')
+            self.page.locators.ADDRESS_CARD_STREET_INPUT, self.streetArbat)
         self.page.click(self.page.locators.ADDRESS_CARD_APPLY_BUTTON)
 
         assert self.page.get_attribute(
-            self.page.locators.ADDRESS_CARD_STREET_TEXT, 'innerText') == 'Arbat street'
+            self.page.locators.ADDRESS_CARD_STREET_TEXT, 'innerText') == self.streetArbat
 
         self.page.click(self.page.locators.ADDRESS_CARD)
         self.page.click(self.page.locators.DELETE_ADDRESS_CARD)
