@@ -7,4 +7,6 @@ export PWD_AUTH="123456"
 export LOGIN_PROFILE="basetest@example.com"
 export PWD_PROFILE="ka@ld34o(12Cafk"
 
+
+# asdas
 pytest --alluredir=allure-results hw/code/test*.py
