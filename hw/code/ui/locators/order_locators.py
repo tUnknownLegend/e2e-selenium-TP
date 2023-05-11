@@ -14,9 +14,8 @@ class OrderPageLocators(BaseLocators):
 
         self.BUTTON_EMPTY_ORDERS_REDIRECT = (By.ID, 'content-unAuth-page-redirect')
 
-        self.ORDER_STATUS = (By.ID, 'order-status')
-
         self.MESSAGE = (By.ID, 'server-error__text_')
-        #self.ORDER_STATUS2 = (By.XPATH, '//span[starts-with(@id, "order-status/")]')
-        
+
+        self.ORDER_STATUS = (By.XPATH, '//span[starts-with(@id, "order-status/")]')
+
         
