@@ -4,10 +4,7 @@ from ui.pages.login_page import LoginPage
 from ui.pages.header import Header
 from ui.pages.search_header import SearchHeader
 
-# import pytest
 
-
-# @pytest.mark.skip('skip')
 class TestHeader():
     driver = get_driver(browser_name='chrome')
     login_page = LoginPage(driver)
@@ -51,6 +48,7 @@ class TestHeader():
             self.searchHeader.checkProhibitedSymbolsSearch()
 
         with allure.step('checkSearchSuggestions'):
+            self.searchHeader.render_page()
             self.searchHeader.checkSearchSuggestions()
 
         with allure.step('sendNoResultsRequest'):

@@ -2,6 +2,7 @@ from ui.pages.login_page import LoginPage
 from ui.fixtures import get_driver
 from ui.pages.header import Header
 from ui.locators.base_locators import BaseLocators
+from ui.tabTitles import TabTitles
 import os
 
 
@@ -17,6 +18,7 @@ class TestLogin():
     loginPage = LoginPage(driver)
     header = Header(driver)
     baseLocators = BaseLocators()
+    tabTitles = TabTitles()
 
     failCases = [
         Case("", "b", "Поле обязательно должно быть заполнено"),
@@ -28,8 +30,7 @@ class TestLogin():
 
     @loginPage.render_decorator
     def test_title(self):
-        title = 'Вход - Reazon'
-        assert self.driver.title == title
+        assert self.driver.title == self.tabTitles.login
 
     @loginPage.render_decorator
     def test_redirect(self):
@@ -46,7 +47,7 @@ class TestLogin():
 
     @loginPage.render_decorator
     def test_ok(self):
-        self.loginPage.loginData(os.getenv('LOGIN_B'), os.getenv('PWD_B'))
+        self.loginPage.loginData(os.getenv('LOGIN_AUTH'), os.getenv('PWD_AUTH'))
         self.loginPage.waitUntilVisible(
             self.loginPage.homeLocators.GET_CATEGORIES_CONTAINER)
         assert self.driver.current_url == (

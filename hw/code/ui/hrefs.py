@@ -14,3 +14,8 @@ class Hrefs():
     domain = 'https://www.reazon.ru'
     phones = '/phones'
     search = '/search'
+
+    defaultProduct = '/43'
+    defaultSearchQuery = '?q=iphone'
+    cartDeliveryAnchor = '#delivery-info_cart'
+    cartPaymentMethodAnchor = '#payment-method_cart'
