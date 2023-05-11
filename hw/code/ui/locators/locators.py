@@ -41,7 +41,6 @@ class ProfileLocators:
     PHONE_STRING = (By.ID, 'phone-text')
 
     CHANGE_PASSWORD_BUTTON = (By.XPATH, '//div[contains(@id, "password")]/a')
-    # (By.ID, 'password')
     CURRENT_PASSWORD_INPUT = (By.ID, 'password__popUp')
     NEW_PASSWORD_INPUT = (By.ID, 'password__2__popUp')
     REPEAT_PASSWORD_INPUT = (By.ID, 'password__3__popUp')

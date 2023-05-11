@@ -4,10 +4,6 @@ from ui.locators.locators import BasePageLocators
 from ui.pages.login_page import LoginPage
 
 
-from ui.base_case.base_case import BaseCase
-
-
-
 class ProfilePage(BasePage):
     locators = ProfileLocators
     PATH = 'user'

@@ -3,20 +3,18 @@ from ui.locators.favourites_locators import FavouritesLocators
 from ui.locators.base_locators import BaseLocators
 from ui.locators.catalog_locators import CatalogLocators
 
-# import pytest
 
-
-# @pytest.mark.skip('skip')
 class TestCategorySelection():
     baseLocators = BaseLocators()
     product = FavouritesComponent(
         FavouritesLocators,
-        baseLocators.hrefs.domain + baseLocators.hrefs.product + '/43')
+        baseLocators.hrefs.domain + baseLocators.hrefs.product +
+        baseLocators.hrefs.defaultProduct)
 
     search = FavouritesComponent(
         CatalogLocators,
         baseLocators.hrefs.domain + baseLocators.hrefs.search
-        + '?q=iphone')
+        + baseLocators.hrefs.defaultSearchQuery)
 
     favouritesPage = FavouritesComponent(
         CatalogLocators,
