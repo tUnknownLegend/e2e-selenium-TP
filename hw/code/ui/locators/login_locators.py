@@ -15,3 +15,4 @@ class LoginPageLocators(BaseLocators):
         self.ERROR = (By.ID, 'error-text')
 
         self.SIGNUP_LINK = (By.LINK_TEXT, 'Зарегистрироваться')
+        
