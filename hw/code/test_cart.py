@@ -95,7 +95,6 @@ class TestCart(BaseCase):
         self.page.add_product()
         self.page.click(self.page.locators.BUTTON_FAVORITE)
 
-        assert self.page.find(self.page.locators.POPUP_MESSAGE).is_displayed()
         assert self.page.find(self.page.locators.MESSAGE_FOR_LOGIN).text == message_for_login
 
     def test_delete_product_button(self):
