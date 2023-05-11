@@ -3,6 +3,7 @@ from selenium.webdriver.common.by import By
 
 class BasePageLocators:
     USER_BUTTON = (By.XPATH, '//a[@href="/user"]')
+    LOGOUT_BUTTON = (By.XPATH, '//a[@href="/logout"]')
 
 
 class LoginLocators:
@@ -10,7 +11,6 @@ class LoginLocators:
     PASSWORD_INPUT_LOGIN_PAGE = (By.NAME, 'password')
     SIGN_IN_BUTTON_LOGIN_PAGE = (By.ID, 'submit-result')
     LOGIN_BUTTON = (By.XPATH, '//a[@href="/login"]')
-    LOGOUT_BUTTON = (By.XPATH, '//a[@href="/logout"]')
 
 
 class ProfileLocators:
@@ -46,6 +46,7 @@ class ProfileLocators:
     REPEAT_PASSWORD_INPUT = (By.ID, 'password__3__popUp')
 
     ADD_PAYMENT_CARD = (By.ID, 'add-payment-card')
+    DELETE_PAYMENT_CARD = (By.ID, 'delete-paymentCard/-1')
     PAYMENT_CARD_NUMBER_INPUT = (By.ID, 'cardNumber')
     PAYMENT_CARD_MONTH_INPUT = (By.ID, 'month')
     PAYMENT_CARD_YEAR_INPUT = (By.ID, 'year')
@@ -53,6 +54,21 @@ class ProfileLocators:
     PAYMENT_CARD_APPLY_BUTTON = (By.ID, 'popup-form_add-card__apply')
     PAYMENT_CARD_CANCEL_BUTTON = (By.ID, 'popup-form_add-card__cancel')
     PAYMENT_CARD_NUMBER = (By.XPATH, '//div[contains(@class, "payment-card-number")]')
+    PAYMENT_CARD = (By.ID, 'wrapper-paymentCard/-1')
+
+    ADD_ADDRESS_CARD = (By.ID, 'add-address')
+    DELETE_ADDRESS_CARD = (By.ID, 'delete-addressCard/-1')
+    EDIT_ADDRESS_CARD = (By.ID, 'edit-addressCard/-1')
+    
+    ADDRESS_CARD_CITY_INPUT = (By.XPATH, '//input[@id="city"]')
+    ADDRESS_CARD_STREET_INPUT = (By.XPATH, '//input[@id="street"]')
+    ADDRESS_CARD_HOUSE_INPUT = (By.XPATH, '//input[@id="house"]')
+    ADDRESS_CARD_FLAT_INPUT = (By.XPATH, '//input[@id="flat"]')
+
+    ADDRESS_CARD_APPLY_BUTTON = (By.ID, 'popup-form_add-address__apply')
+    ADDRESS_CARD_CANCEL_BUTTON = (By.ID, 'popup-form_add-address__cancel')
+    ADDRESS_CARD = (By.ID, 'wrapper-addressCard/-1')
+    ADDRESS_CARD_STREET_TEXT = (By.XPATH, '//div[@class="address-card-wrapper"]/a/div[2]')
 
     base = ()
 

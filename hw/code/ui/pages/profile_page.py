@@ -2,6 +2,7 @@ from ui.pages.base_page import BasePage
 from ui.locators.locators import ProfileLocators
 from ui.locators.locators import BasePageLocators
 from ui.pages.login_page import LoginPage
+import time
 
 
 class ProfilePage(BasePage):
@@ -13,11 +14,11 @@ class ProfilePage(BasePage):
         self.click(BasePageLocators.USER_BUTTON)
 
     def logout(self):
-        LoginPage.logout(self)
+        self.click(BasePageLocators.USER_BUTTON)
+        self.click(BasePageLocators.LOGOUT_BUTTON)
         self.refresh()
 
     def change_password(self, ex, new):
-        self.click(BasePageLocators.USER_BUTTON)
         self.click(ProfileLocators.CHANGE_PASSWORD_BUTTON)
         input = self.find(ProfileLocators.CURRENT_PASSWORD_INPUT)
         input.send_keys(ex)
