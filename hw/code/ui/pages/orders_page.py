@@ -1,7 +1,6 @@
 from ui.locators import locators
 from ui.pages.base_page import BasePage
 from ui.base_case.base_case import BaseCase
-from ui.paths import paths
 from ui.locators.home_locators import HomeLocators
 from ui.locators.order_locators import OrderPageLocators
 
