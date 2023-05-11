@@ -40,6 +40,7 @@ class TestSignup():
 
     @signupPage.render_decorator
     def test_title(self):
+        self.signupPage.waitUntilVisible(self.signupPage.locators.SIGNIN_LINK)
         title = 'Регистрация - Reazon'
         assert self.driver.title == title
 

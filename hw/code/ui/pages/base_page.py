@@ -18,6 +18,7 @@ class StaleTimeoutExeption(Exception):
 
 
 class BasePage(object):
+
     baseLocators = BaseLocators()
     default_timeout = 15
     mini_timeout = 3
@@ -146,3 +147,28 @@ class BasePage(object):
 
     def wait_to_be_clickable(self, locator, timeout=default_timeout):
         return self.wait(timeout).until(EC.element_to_be_clickable(locator))
+
+    def get_attribute(self, locator, attribute, timeout=default_timeout) -> WebElement:
+        started = time.time()
+        while time.time() - started < timeout:
+            content = self.find(locator).get_attribute(attribute)
+            return content
+
+        raise StaleTimeoutExeption(
+            f"{locator} did not clickable or have been throwing" +
+            f"StaleElementReferenceExceptions in {timeout} sec," +
+            f" current url {self.driver.current_url}")
+
+    def get_text(self, locator, timeout=default_timeout) -> WebElement:
+        started = time.time()
+        while time.time() - started < timeout:
+            content = self.find(locator).getText()
+            return content
+
+        raise StaleTimeoutExeption(
+            f"{locator} did not clickable or have been throwing" +
+            f"StaleElementReferenceExceptions in {timeout} sec," +
+            f" current url {self.driver.current_url}")
+
+    def refresh(self, timeout=default_timeout):
+        self.driver.refresh()
