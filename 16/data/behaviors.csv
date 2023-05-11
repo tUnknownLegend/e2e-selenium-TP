@@ -1,6 +1,0 @@
-"Epic","Feature","Story","FAILED","BROKEN","PASSED","SKIPPED","UNKNOWN"
-"","Test Login","Login","0","0","1","0","0"
-"","Tests search","different payloads for search and suggestions","1","0","0","0","0"
-"","Header navigation buttons","Checks links in buttons on right side of the header","0","0","1","0","0"
-"","Selects category","selects all categories from hamburger menu in header","0","0","1","0","0"
-"","Tests login / profile button","Login and find profile button, then logout","0","1","0","0","0"
