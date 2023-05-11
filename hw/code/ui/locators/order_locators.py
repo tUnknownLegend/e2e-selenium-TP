@@ -17,5 +17,3 @@ class OrderPageLocators(BaseLocators):
         self.MESSAGE = (By.ID, 'server-error__text_')
 
         self.ORDER_STATUS = (By.XPATH, '//span[starts-with(@id, "order-status/")]')
-
-        

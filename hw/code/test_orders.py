@@ -8,6 +8,10 @@ class TestOrders():
     ordersPage = OrdersPage(driver)
     header = Header(driver)
 
+    default_email = 'test@test'
+    emailEmptyOrders = 'test2@test'
+    password = '123456'
+
     @ordersPage.render_decorator
     def test_title(self):
         title = 'Заказы - Reazon'
@@ -20,7 +24,7 @@ class TestOrders():
 
     @ordersPage.render_decorator
     def test_empty_orders(self):
-        self.ordersPage.authorize("test2@test", "123456")
+        self.ordersPage.authorize(self.emailEmptyOrders, self.password)
         self.ordersPage.render(self.ordersPage.url)
         assert self.ordersPage.find(self.ordersPage.locators.BUTTON_EMPTY_ORDERS_REDIRECT).is_displayed()
         self.header.findUserPageButton()
@@ -28,7 +32,7 @@ class TestOrders():
 
     @ordersPage.render_decorator
     def test_button_deny_order(self):
-        self.ordersPage.authorize("test@test", "123456")
+        self.ordersPage.authorize(self.default_email, self.password)
         self.ordersPage.add_product_after_login()
         self.ordersPage.click(self.ordersPage.locators.BUTTON_MAKE_ORDER)
         self.ordersPage.click(self.ordersPage.locators.BUTTON_DENY_ORDER)
