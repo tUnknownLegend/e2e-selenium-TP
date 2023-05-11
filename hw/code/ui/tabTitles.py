@@ -4,3 +4,4 @@ class TabTitles():
     profile = f'Ваши данные{rightSideOfTheTitle}'
     login = f'Вход{rightSideOfTheTitle}'
     cart = f'Корзина{rightSideOfTheTitle}'
+    orders = f'Заказы{rightSideOfTheTitle}'

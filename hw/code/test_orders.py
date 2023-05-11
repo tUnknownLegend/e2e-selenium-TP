@@ -1,6 +1,7 @@
 from ui.pages.orders_page import OrdersPage
 from ui.fixtures import get_driver
 from ui.pages.header import Header
+from ui.tabTitles import TabTitles
 
 
 class TestOrders():
@@ -14,7 +15,7 @@ class TestOrders():
 
     @ordersPage.render_decorator
     def test_title(self):
-        title = 'Заказы - Reazon'
+        title = TabTitles().orders
         assert self.driver.title == title
 
     @ordersPage.render_decorator
