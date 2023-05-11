@@ -4,7 +4,7 @@ import time
 from ui.fixtures import get_driver
 from ui.pages.horizontal_scroll_catalog_locators import HorizontalScrollCatalog
 
-import pytest
+# import pytest
 
 
 # @pytest.mark.skip('skip')

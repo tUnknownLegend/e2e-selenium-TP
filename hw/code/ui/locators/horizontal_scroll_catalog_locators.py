@@ -1,21 +1,10 @@
-
+from ui.locators.base_locators import BaseLocators
 from selenium.webdriver.common.by import By
-from ui.hrefs import Hrefs
 
 
-class HorizontalScrollCatalogLocators():
+class HorizontalScrollCatalogLocators(BaseLocators):
     def __init__(self):
-        self.hrefs = Hrefs()
-
-    SCROLL_TO_RIGHT_BUTTON = (
-        By.XPATH, '//div[@class="right-arrow"]' +
-        '/button[@class="arrow-button text-normal-default"]'
-    )
-
-    SCROLL_TO_LEFT_BUTTON = (
-        By.XPATH, '//div[@class="left-arrow"]' +
-        '/button[@class="arrow-button text-normal-default"]'
-    )
+        super(HorizontalScrollCatalogLocators, self).__init__()
 
     def GET_SCROLL_CONTAINER(self, index):
         return (
@@ -33,6 +22,16 @@ class HorizontalScrollCatalogLocators():
             By.XPATH, f'//div[@class="content__horizontal-scroll"][{containerIndex}]' +
             f'/div[{itemIndex}]'
         )
+
+    SCROLL_TO_RIGHT_BUTTON = (
+        By.XPATH, '//div[@class="right-arrow"]' +
+        '/button[@class="arrow-button text-normal-default"]'
+    )
+
+    SCROLL_TO_LEFT_BUTTON = (
+        By.XPATH, '//div[@class="left-arrow"]' +
+        '/button[@class="arrow-button text-normal-default"]'
+    )
 
     GET_COUNT_CONTAINER = (
         By.XPATH, '//div[@class="item-card__block__button-add-to-cart"][1]'

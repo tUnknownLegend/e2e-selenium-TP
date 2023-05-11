@@ -2,7 +2,7 @@ from ui.components.catalog_components import CatalogComponent
 from ui.locators.base_locators import BaseLocators
 from ui.locators.catalog_locators import CatalogLocators
 
-import pytest
+# import pytest
 
 
 # @pytest.mark.skip('skip')

@@ -1,10 +1,10 @@
 from selenium.webdriver.common.by import By
-from ui.hrefs import Hrefs
+from ui.locators.base_locators import BaseLocators
 
 
-class CommentTitleLocators():
+class CommentTitleLocators(BaseLocators):
     def __init__(self):
-        self.hrefs = Hrefs()
+        super(CommentTitleLocators, self).__init__()
 
     GET_COUNT_CONTAINER = (
         By.XPATH, '//div[@id="block-button-add-to-cart"]' +

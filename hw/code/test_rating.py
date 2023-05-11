@@ -2,7 +2,7 @@ from ui.components.rating import CheckRatingButton
 from ui.locators.product_title_locators import ProductTitleLocators
 from ui.locators.horizontal_scroll_catalog_locators import HorizontalScrollCatalogLocators
 
-import pytest
+# import pytest
 
 
 # @pytest.mark.skip('skip')

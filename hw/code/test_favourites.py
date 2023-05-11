@@ -3,7 +3,7 @@ from ui.locators.favourites_locators import FavouritesLocators
 from ui.locators.base_locators import BaseLocators
 from ui.locators.catalog_locators import CatalogLocators
 
-import pytest
+# import pytest
 
 
 # @pytest.mark.skip('skip')

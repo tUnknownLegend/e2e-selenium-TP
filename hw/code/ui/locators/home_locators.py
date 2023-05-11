@@ -1,13 +1,10 @@
-
+from ui.locators.base_locators import BaseLocators
 from selenium.webdriver.common.by import By
-from ui.hrefs import Hrefs
 
 
-class HomeLocators():
+class HomeLocators(BaseLocators):
     def __init__(self):
-        self.hrefs = Hrefs()
-
-        self.GET_CATEGORIES_CONTAINER = (By.ID, 'catalog')
+        super(HomeLocators, self).__init__()
 
     def CATEGORY_SELECTOR_MENU(self, index):
         return (By.XPATH, '//div[@id="catalog"]' +
@@ -17,6 +14,8 @@ class HomeLocators():
         return (By.XPATH, '//div[@id="catalog"]' +
                 f'/a[@class="item-top-cards text-normal-default"]{index}'
                 '/div[@id="mainpage_top-category"]')
+
+    GET_CATEGORIES_CONTAINER = (By.ID, 'catalog')
 
     GET_COUNT_CONTAINER = (
         By.XPATH, '//div[@class="item-card__block__button-add-to-cart"]'

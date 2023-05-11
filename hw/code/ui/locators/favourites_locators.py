@@ -6,10 +6,10 @@ class FavouritesLocators(BaseLocators):
     def __init__(self):
         super(FavouritesLocators, self).__init__()
 
-        self.GET_FAVOURITES_LABEL = (
-            By.XPATH, '//label[@class="product-page-header__selection"]'
-        )
+    GET_FAVOURITES_LABEL = (
+        By.XPATH, '//label[@class="product-page-header__selection"]'
+    )
 
-        self.GET_FAVOURITES_INPUT = (
-            By.ID, 'favourite-opt_cart'
-        )
+    GET_FAVOURITES_INPUT = (
+        By.ID, 'favourite-opt_cart'
+    )

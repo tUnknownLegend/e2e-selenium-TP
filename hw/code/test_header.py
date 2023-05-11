@@ -4,7 +4,7 @@ from ui.pages.login_page import LoginPage
 from ui.pages.header import Header
 from ui.pages.search_header import SearchHeader
 
-import pytest
+# import pytest
 
 
 # @pytest.mark.skip('skip')

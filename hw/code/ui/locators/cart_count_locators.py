@@ -1,13 +1,13 @@
 from selenium.webdriver.common.by import By
-from ui.hrefs import Hrefs
+from ui.locators.base_locators import BaseLocators
 
 
-class CartCountLocators():
+class CartCountLocators(BaseLocators):
     def __init__(self):
-        self.hrefs = Hrefs()
+        super(CartCountLocators, self).__init__()
 
     GET_COUNT_CONTAINER = (
-        By.XPATH, '//div[@id="block-button-add-to-cart"]' + 
+        By.XPATH, '//div[@id="block-button-add-to-cart"]' +
         '/div[contains(@id, "button-add-to-cart/")]'
     )
 

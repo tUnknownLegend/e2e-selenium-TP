@@ -6,7 +6,7 @@ from ui.locators.comment_titile_locators import CommentTitleLocators
 from ui.locators.home_locators import HomeLocators
 from ui.locators.catalog_locators import CatalogLocators
 
-import pytest
+# import pytest
 
 
 # @pytest.mark.skip('skip')

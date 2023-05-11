@@ -1,10 +1,10 @@
 from selenium.webdriver.common.by import By
-from ui.hrefs import Hrefs
+from ui.locators.base_locators import BaseLocators
 
 
-class ViewCommentLocators():
+class ViewCommentLocators(BaseLocators):
     def __init__(self):
-        self.hrefs = Hrefs()
+        super(ViewCommentLocators, self).__init__()
 
     ADD_COMMENT_BUTTON = (
         By.ID, 'add-comment-btn'

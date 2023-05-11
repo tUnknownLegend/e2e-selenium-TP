@@ -1,10 +1,10 @@
 from selenium.webdriver.common.by import By
-from ui.hrefs import Hrefs
+from ui.locators.base_locators import BaseLocators
 
 
-class AddCommentLocators():
+class AddCommentLocators(BaseLocators):
     def __init__(self):
-        self.hrefs = Hrefs()
+        super(AddCommentLocators, self).__init__()
 
     COMMENT_BLOCK_TITLE = (
         By.CLASS_NAME, 'comment-page-main__header-name-button'

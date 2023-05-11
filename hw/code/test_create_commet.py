@@ -5,7 +5,7 @@ from ui.pages.create_review_page import CreateComment
 from ui.pages.login_page import LoginPage
 from ui.pages.header import Header
 
-import pytest
+# import pytest
 
 
 # @pytest.mark.skip('skip')

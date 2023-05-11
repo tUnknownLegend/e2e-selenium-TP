@@ -1,12 +1,10 @@
 import allure
-# import pytest
 
 from ui.fixtures import get_driver
 from ui.pages.catalog_selector import CatalogSelector
 from ui.locators.base_locators import BaseLocators
 
 
-# @pytest.mark.skip('skip')
 class CatalogSelectorComponent():
     driver = get_driver(browser_name='chrome')
     catalog = CatalogSelector(driver, BaseLocators())
