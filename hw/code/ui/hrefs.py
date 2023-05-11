@@ -1,0 +1,13 @@
+class Hrefs():
+    product = '/product'
+    login = '/login'
+    user = '/user'
+    cart = '/cart'
+    userFavorites = '/user/favorites'
+    orders = '/orders'
+    logout = '/logout'
+    category = '/category'
+    comment = '/comment'
+    addComment = '/addcomment'
+    home = '/'
+    domain = 'https://www.reazon.ru'
