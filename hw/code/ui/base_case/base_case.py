@@ -1,12 +1,18 @@
 import pytest
-from _pytest.fixtures import FixtureRequest
+
 from ui.pages.base_page import BasePage
+import os
+
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 class BaseCase:
-    authorize = True
-    EMAIL = 'basetest@example.com'
-    PASSWORD = 'ka@ld34o(12Cafk'
+    EMAIL = os.getenv('EMAIL')
+    PASSWORD = os.getenv('PASSWORD')
+    EMAIL_PROFILE = os.getenv('LOGIN_PROFILE')
+    PASSWORD_PROFILE = os.getenv('PWD_PROFILE')
 
     @pytest.fixture(scope="function", autouse=True)
     def set_page(self, driver, url_config):
@@ -14,6 +20,5 @@ class BaseCase:
         self.page = BasePage(driver, url_config)
 
     @pytest.fixture(scope="function", autouse=True)
-    def setup(self, request: FixtureRequest):
+    def setup(self):
         self.page.open()
-

@@ -1,10 +1,14 @@
+
+# flake8: noqa F403
+
 import pytest
+
 from ui.fixtures import *
 
 
 def pytest_addoption(parser):
     parser.addoption('--browser', default='chrome')
-    parser.addoption('--url', default='https://www.reazon.ru/')
+    parser.addoption('--url', default='https://www.reazon.ru/cart')
 
 
 @pytest.fixture(scope='session')
