@@ -20,8 +20,8 @@ class StaleTimeoutExeption(Exception):
 class BasePage(object):
 
     baseLocators = BaseLocators()
-    default_timeout = 20
-    mini_timeout = 5
+    default_timeout = 15
+    mini_timeout = 3
     locators = locators.BasePageLocators()
     PATH = ""
 
@@ -59,10 +59,11 @@ class BasePage(object):
             func(newSelf)
         return wrapper
 
-    def wait(self, timeout=mini_timeout):
+    def wait(self, timeout=5):
         return WebDriverWait(self.driver, timeout=timeout)
 
-    def find(self, locator, timeout=mini_timeout):
+    def find(self, locator, timeout=10):
+        self.waitUntilVisible(locator)
         return self.wait(timeout + self.mini_timeout).until(
             EC.presence_of_element_located(locator))
 
@@ -77,10 +78,10 @@ class BasePage(object):
     def hover(self, element):
         self.actions.move_to_element(element).perform()
 
-    def waitUntilVisible(self, selector, timeout=mini_timeout):
+    def waitUntilVisible(self, selector, timeout=5):
         self.wait(timeout).until(EC.presence_of_element_located(selector))
 
-    def waitUntilInvisible(self, selector, timeout=mini_timeout):
+    def waitUntilInvisible(self, selector, timeout=5):
         self.wait(timeout).until(EC.invisibility_of_element_located(selector))
 
     def checkErrorMessage(self, errorMessage):
@@ -104,7 +105,7 @@ class BasePage(object):
     def getSrc(self, selector, timeout=mini_timeout):
         return self.find(selector, timeout).get_attribute('src')
 
-    def waitUntilClickableElement(self, selector, timeout=mini_timeout):
+    def waitUntilClickableElement(self, selector, timeout=5):
         self.wait(timeout).until(EC.element_to_be_clickable(selector))
 
     def checkPhoto(self, selector):
