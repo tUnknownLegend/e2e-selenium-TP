@@ -42,4 +42,5 @@ class TestAddressPopup(BaseCase):
         select_address = self.page.find(self.page.locators.ADDRESS).get_attribute('id')
         self.page.click(self.page.locators.ADDRESS)
         self.page.click(self.page.popup_locators.BUTTON_APPLY)
-        assert self.page.find(self.page.cart_locators.SELECT_ADDRESS).get_attribute('id') == select_address
+        assert self.page.find(
+            self.page.cart_locators.SELECT_ADDRESS).get_attribute('id') == select_address

@@ -1,3 +1,5 @@
+# flake8: noqa F403
+
 import pytest
 
 from ui.fixtures import *

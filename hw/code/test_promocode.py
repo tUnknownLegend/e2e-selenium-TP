@@ -1,7 +1,6 @@
 import pytest
 from ui.pages.promocode_page import PromocodePage
 from ui.base_case.base_case import BaseCase
-from ui.paths import paths
 
 
 class TestPromocode(BaseCase):
