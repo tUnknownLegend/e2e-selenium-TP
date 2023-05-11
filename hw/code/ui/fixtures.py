@@ -1,4 +1,5 @@
 import pytest
+
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.firefox import GeckoDriverManager
@@ -60,13 +61,3 @@ def driver(browser_config):
     driver = get_driver(browser_config)
     yield driver
     driver.quit()
-
-
-# @pytest.fixture(scope='session', params=['chrome', 'firefox'])
-# def all_drivers(config, request):
-#     url = config['url']
-#     browser = get_driver(request.param)
-#     browser.get(url)
-#     yield browser
-
-#     browser.quit()

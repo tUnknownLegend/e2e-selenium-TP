@@ -1,6 +1,7 @@
 class Hrefs():
     product = '/product'
     login = '/login'
+    signup = '/signup'
     user = '/user'
     cart = '/cart'
     userFavorites = '/user/favorites'
@@ -10,6 +11,6 @@ class Hrefs():
     comment = '/comment'
     addComment = '/addcomment'
     home = '/'
+    domain = 'https://www.reazon.ru'
     phones = '/phones'
     search = '/search'
-    domain = 'https://www.reazon.ru'

@@ -1,3 +1,4 @@
+
 from ui.locators.base_locators import BaseLocators
 from selenium.webdriver.common.by import By
 
@@ -38,5 +39,4 @@ class HomeLocators(BaseLocators):
         By.XPATH, '//div[@class="item-card"]' +
         '/div[@class="item-card__top"]' +
         '/a[@class="text-normal-small content__sales-image link__no-color"]' +
-        '/img[@class="item-card__image"]'
-    )
+        '/img[@class="item-card__image"]')

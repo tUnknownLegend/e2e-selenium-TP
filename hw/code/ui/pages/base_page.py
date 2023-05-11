@@ -1,6 +1,6 @@
 import time
+
 from selenium.webdriver.remote.webelement import WebElement
-from selenium.common.exceptions import StaleElementReferenceException
 import urllib.parse as urlparse
 from ui.locators import locators
 from selenium.webdriver.support.wait import WebDriverWait
@@ -111,6 +111,7 @@ class BasePage(object):
         photoURL = self.getSrc(selector)
 
         self.render(photoURL)
+
         self.is_opened(photoURL)
 
     def is_url(self, path):

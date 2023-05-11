@@ -11,3 +11,7 @@ class LoginPageLocators(BaseLocators):
     PASSWORD_INPUT_LOGIN_PAGE = (By.NAME, 'password')
 
     SIGN_IN_BUTTON_LOGIN_PAGE = (By.ID, 'submit-result')
+
+    ERROR = (By.ID, 'error-text')
+
+    SIGNUP_LINK = (By.LINK_TEXT, 'Зарегистрироваться')
