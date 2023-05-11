@@ -33,6 +33,6 @@ class TestOrders():
         self.ordersPage.click(self.ordersPage.locators.BUTTON_MAKE_ORDER)
         self.ordersPage.click(self.ordersPage.locators.BUTTON_DENY_ORDER)
         self.ordersPage.waitUntilInvisible(self.ordersPage.locators.MESSAGE)
-        assert self.ordersPage.find(self.ordersPage.locators.ORDER_STATUS2).text == "Статус: отменен"
+        assert self.ordersPage.find(self.ordersPage.locators.ORDER_STATUS).text == "Статус: отменен"
         self.header.findUserPageButton()
         self.header.logout()
