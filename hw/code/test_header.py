@@ -4,7 +4,7 @@ from ui.pages.login_page import LoginPage
 from ui.pages.header import Header
 from ui.pages.search_header import SearchHeader
 
-# import pytest
+import pytest
 
 
 # @pytest.mark.skip('skip')
@@ -58,12 +58,6 @@ class TestHeader():
 
         with allure.step('performTooShortSearchRequest'):
             self.searchHeader.performTooShortSearchRequest()
-
-    # @allure.feature('Selects category')
-    # @allure.story('selects all categories from hamburger menu in header')
-    # @header.render_decorator
-    # def test_categorySelect(self):
-    #     self.header.selectCategory()
 
     @allure.feature('Checks logo')
     @allure.story('checks link in logo')

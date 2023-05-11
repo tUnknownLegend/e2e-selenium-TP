@@ -5,6 +5,8 @@ from ui.pages.change_cart_count import CartCountChange
 from ui.pages.login_page import LoginPage
 from ui.pages.header import Header
 
+import time
+
 
 class ChangeCartCountButton():
     driver = get_driver(browser_name='chrome')

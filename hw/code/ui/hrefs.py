@@ -10,4 +10,6 @@ class Hrefs():
     comment = '/comment'
     addComment = '/addcomment'
     home = '/'
+    phones = '/phones'
+    search = '/search'
     domain = 'https://www.reazon.ru'

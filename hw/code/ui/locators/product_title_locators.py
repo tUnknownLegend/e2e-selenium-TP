@@ -24,14 +24,6 @@ class ProductTitleLocators(BaseLocators):
             By.XPATH, '//a[@class="product-page-header__rating link__no-color"]'
         )
 
-        self.GET_FAVOURITES_LABEL = (
-            By.XPATH, '//label[@class="product-page-header__selection"]'
-        )
-
-        self.GET_FAVOURITES_INPUT = (
-            By.ID, 'favourite-opt_cart'
-        )
-
         self.GET_PHOTO = (
             By.CLASS_NAME, 'product-page-main__photo'
         )

@@ -5,11 +5,10 @@ from ui.pages.product_title import ProductTitle
 from ui.pages.login_page import LoginPage
 from ui.pages.header import Header
 
-# import pytest
+import pytest
+
 
 # @pytest.mark.skip('skip')
-
-
 class TestProductTitle():
     driver = get_driver(browser_name='chrome')
     productPage = ProductTitle(driver)
@@ -28,30 +27,6 @@ class TestProductTitle():
 
         with allure.step('checkCategoryLink'):
             self.productPage.checkCategoryLink()
-
-    @allure.feature('Favourites button')
-    @allure.story('unauth check')
-    @productPage.render_decorator
-    def test_favorites_unauth(self):
-        self.productPage.unauthFavourites()
-
-    @allure.feature('Favourites button')
-    @allure.story('auth check')
-    @productPage.render_decorator
-    def test_favorites_auth(self):
-        with allure.step('login'):
-            self.header.findLoginPageButton().click()
-            self.loginPage.login()
-
-        with allure.step('go back to product page'):
-            self.productPage.render_page()
-
-        with allure.step('authFavourites check and unchecked'):
-            self.productPage.authFavourites()
-            self.productPage.authFavourites()
-
-        with allure.step('logout'):
-            self.header.logout()
 
     @allure.feature('Check photo')
     @allure.story('is photo broken')

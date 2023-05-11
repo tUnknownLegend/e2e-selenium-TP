@@ -1,4 +1,4 @@
-export LOGIN_A="basetest@example.com"
-export PWD_A="ka@ld34o(12Cafk"
+export LOGIN_A="you@example.com"
+export PWD_A="kXkjc728dnAD#@"
 
 pytest --alluredir=allure-results hw/code/test*.py

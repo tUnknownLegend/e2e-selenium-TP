@@ -4,11 +4,10 @@ from ui.pages.view_comment import ViewComment
 from ui.pages.login_page import LoginPage
 from ui.pages.header import Header
 
-# import pytest
+import pytest
+
 
 # @pytest.mark.skip('skip')
-
-
 class TestViewComment():
     driver = get_driver(browser_name='chrome')
     viewComment = ViewComment(driver)

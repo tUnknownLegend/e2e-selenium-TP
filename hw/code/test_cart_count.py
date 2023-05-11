@@ -4,8 +4,9 @@ from ui.locators.horizontal_scroll_catalog_locators import HorizontalScrollCatal
 from ui.locators.base_locators import BaseLocators
 from ui.locators.comment_titile_locators import CommentTitleLocators
 from ui.locators.home_locators import HomeLocators
+from ui.locators.catalog_locators import CatalogLocators
 
-# import pytest
+import pytest
 
 
 # @pytest.mark.skip('skip')
@@ -33,6 +34,20 @@ class TestChangeItemCountInCart():
         HorizontalScrollCatalogLocators,
         baseLocator.hrefs.domain + baseLocator.hrefs.product + '/43')
 
+    categoryPage = ChangeCartCountButton(
+        CatalogLocators,
+        baseLocator.hrefs.domain + baseLocator.hrefs.category
+        + baseLocator.hrefs.phones)
+
+    favouritesPage = ChangeCartCountButton(
+        CatalogLocators,
+        baseLocator.hrefs.domain + baseLocator.hrefs.userFavorites)
+
+    searchPage = ChangeCartCountButton(
+        CatalogLocators,
+        baseLocator.hrefs.domain + baseLocator.hrefs.search
+        + '?q=iphone')
+
     def test_product_change_count(self):
         self.productChangeCount.test_unauth_change_count_buttons()
         self.productChangeCount.test_auth_change_count_buttons()
@@ -50,3 +65,14 @@ class TestChangeItemCountInCart():
 
     def test_recommendation_change_count(self):
         self.recommendationsItemChangeCount.test_unauth_change_count_buttons()
+
+    def test_category_page_change_count(self):
+        self.categoryPage.test_unauth_change_count_buttons()
+        self.categoryPage.test_auth_change_count_buttons()
+
+    def test_favourite_page_change_count(self):
+        self.favouritesPage.test_auth_change_count_buttons()
+
+    def test_search_page_change_count(self):
+        self.searchPage.test_unauth_change_count_buttons()
+        self.searchPage.test_auth_change_count_buttons()
