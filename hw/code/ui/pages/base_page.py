@@ -119,13 +119,11 @@ class BasePage(object):
     def click(self, locator, timeout=default_timeout) -> WebElement:
         started = time.time()
         while time.time() - started < timeout:
-            try:
-                elem = self.wait_to_be_clickable(
-                    locator, timeout - (time.time() - started))
-                elem.click()
-                return elem
-            except StaleElementReferenceException as Exception:
-                pass
+            elem = self.wait_to_be_clickable(
+                locator, timeout - (time.time() - started))
+            elem.click()
+            return elem
+
         raise StaleTimeoutExeption(
             f"{locator} did not clickable or have been throwing" +
             f"StaleElementReferenceExceptions in {timeout} sec," +
@@ -134,14 +132,12 @@ class BasePage(object):
     def send_keys(self, locator, keys, timeout=default_timeout) -> WebElement:
         started = time.time()
         while time.time() - started < timeout:
-            try:
-                elem = self.wait_to_be_clickable(
-                    locator, timeout - (time.time() - started))
-                elem.clear()
-                elem.send_keys(keys)
-                return elem
-            except StaleElementReferenceException as Exception:
-                pass
+            elem = self.wait_to_be_clickable(
+                locator, timeout - (time.time() - started))
+            elem.clear()
+            elem.send_keys(keys)
+            return elem
+
         raise StaleTimeoutExeption(
             f"{locator} did not clickable or have been throwing" +
             f" StaleElementReferenceExceptions in {timeout} sec," +
