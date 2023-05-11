@@ -54,6 +54,3 @@ class TestSignup():
         assert self.driver.current_url == "https://www.reazon.ru/"
         self.header.findUserPageButton()
         self.header.logout()
-
-   
-
