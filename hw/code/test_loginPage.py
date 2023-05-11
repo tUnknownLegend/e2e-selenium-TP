@@ -49,6 +49,7 @@ class TestLogin():
         self.loginPage.loginData(os.getenv('LOGIN_B'), os.getenv('PWD_B'))
         self.loginPage.waitUntilVisible(
             self.loginPage.homeLocators.GET_CATEGORIES_CONTAINER)
-        assert self.driver.current_url == self.baseLocators.hrefs.domain
+        assert self.driver.current_url == (
+            self.baseLocators.hrefs.domain + self.baseLocators.hrefs.home)
         self.header.findUserPageButton()
         self.header.logout()

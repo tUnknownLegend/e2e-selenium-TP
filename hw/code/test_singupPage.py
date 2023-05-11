@@ -58,7 +58,8 @@ class TestSignup():
         self.signupPage.waitUntilVisible(
             self.signupPage.homeLocators.GET_CATEGORIES_CONTAINER)
 
-        assert self.driver.current_url == self.baseLocators.hrefs.domain
+        assert self.driver.current_url == (
+            self.baseLocators.hrefs.domain + self.baseLocators.hrefs.home)
 
         self.header.findUserPageButton()
         self.header.logout()

@@ -19,20 +19,8 @@ class LoginPage(BasePage):
 
     def login(self):
         self.loginData(self.email, self.pwd)
-        # email_field = self.find(
-        #     self.locators.EMAIL_INPUT_LOGIN_PAGE)
 
-        # email_field.clear()
-        # email_field.send_keys(self.email)
-
-        # pwd_field = self.find(
-        #     self.locators.PASSWORD_INPUT_LOGIN_PAGE)
-        # pwd_field.clear()
-        # pwd_field.send_keys(self.pwd)
-
-        # self.find(self.locators.SIGN_IN_BUTTON_LOGIN_PAGE).click()
-
-        # self.waitUntilVisible(self.homeLocators.GET_CATEGORIES_CONTAINER)
+        self.waitUntilVisible(self.homeLocators.GET_CATEGORIES_CONTAINER)
 
     def loginData(self, email, passwd):
         email_field = self.find(
@@ -54,5 +42,3 @@ class LoginPage(BasePage):
         pwd_field.send_keys(passwd)
 
         self.find(self.locators.SIGN_IN_BUTTON_LOGIN_PAGE).click()
-
-        self.waitUntilVisible(self.homeLocators.GET_CATEGORIES_CONTAINER)
