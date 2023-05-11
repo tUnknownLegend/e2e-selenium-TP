@@ -7,6 +7,13 @@ from ui.locators.search_header_locators import SearchHeaderLocators
 class SearchHeader(BasePage):
     headerLocators = HeaderLocators()
     categoryLocators = CatalogLocators()
+    xssPayload = "<img src onerror=alert(1) />"
+    categoryShortSearch = 'т'
+    noResultSearchMessage = 'aZАя!?()_./-'
+    tooShortSearchErrorMessage = 'Введите не меньше 3 символов'
+    tooShortSearchPayload = 'df'
+    prohibitedSymbolsMessage = 'Введены недопустимые символы'
+    suggestionSearchPayload = 'iphone'
 
     def __init__(self, driver):
         super(SearchHeader, self).__init__(driver)
@@ -26,13 +33,13 @@ class SearchHeader(BasePage):
         self.find(self.locators.SEARCH_BUTTON).click()
 
     def performTooShortSearchRequest(self):
-        self.performSearch('df')
+        self.performSearch(self.tooShortSearchPayload)
 
-        self.checkErrorMessage('Введите не меньше 3 символов')
+        self.checkErrorMessage(self.tooShortSearchErrorMessage)
 
     def sendNoResultsRequest(self):
         self.performSearch(
-            'aZАя!?()_./-',
+            self.noResultSearchMessage,
             lambda: self.waitUntilInvisible(self.locators.GET_FIRST_SEARCH_SUGGESTION))
 
         self.waitUntilVisible(self.locators.SEARCH_NO_RESULTS_MESSAGE)
@@ -43,19 +50,20 @@ class SearchHeader(BasePage):
 
     def checkPhoneCategory(self):
         self.performSearch(
-            'т', self.checkFirstSearchSuggestion)
+            self.categoryShortSearch, self.checkFirstSearchSuggestion)
         self.is_opened(
-            f'{self.locators.hrefs.domain}{self.locators.hrefs.category}/phones')
+            self.locators.hrefs.domain + self.locators.hrefs.category +
+            self.locators.hrefs.phones)
 
     def checkProhibitedSymbolsSearch(self):
-        self.performSearch("<img src onerror=alert(1) />")
+        self.performSearch(self.xssPayload)
 
-        self.checkErrorMessage('Введены недопустимые символы')
+        self.checkErrorMessage(self.prohibitedSymbolsMessage)
 
     def checkSearchSuggestions(self):
         searchInput = self.find(self.locators.SEARCH_INPUT)
         searchInput.clear()
-        searchInput.send_keys('iphone')
+        searchInput.send_keys(self.suggestionSearchPayload)
 
         thirdSearchSuggestion = self.find(
             self.locators.GET_THIRD_SEARCH_SUGGESTION)

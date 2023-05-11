@@ -1,30 +1,40 @@
 import pytest
 from ui.pages.cart_page import CartPage
 from ui.base_case.base_case import BaseCase
-from ui.paths import paths
+from ui.locators.base_locators import BaseLocators
+from ui.tabTitles import TabTitles
 import datetime
 
 
 class TestCart(BaseCase):
+    paths = BaseLocators().hrefs
+    tabTitles = TabTitles()
+    emptyCartMessage = "Корзина пуста. Случайно не нужен \nтелефон\n?"
+    loginToSeeFavouritesMessage = 'Войдите, чтобы добавить в избранное'
+    authToSeeFavouritesMessage = 'Войти или зарегистрироваться, чтобы оформить заказ'
+    emptyFavouritesMessage = 'Пока в избранном ничего нет. Может нужен \nкомпьютер\n?'
+    loginToCompleteOrderMessage = 'Войти или зарегистрироваться, чтобы оформить заказ'
+    loginToCompleteOrderPrompt = 'Чтобы оформить заказ авторизуйтесь'
+
     @pytest.fixture(scope="function", autouse=True)
-    def set_page(self, driver, url_config):
+    def set_page(self, driver):
         self.driver = driver
-        self.page = CartPage(driver, url_config)
+        self.page = CartPage(driver, self.path.domain + self.path.cart)
 
     def test_title(self):
-        title = 'Корзина - Reazon'
+        title = self.tabTitles.cart
         assert self.driver.title == title
 
     def test_empty_cart(self):
-        empty_cart_message = "Корзина пуста. Случайно не нужен \nтелефон\n?"
+        empty_cart_message = self.emptyCartMessage
         assert self.page.find(
             self.page.locators.EMPTY_CART_MESSAGE).text == empty_cart_message
 
         self.page.click(self.page.locators.EMPTY_CART_MESSAGE_LINK)
-        assert self.page.is_url(paths.CATEGORY_PHONES)
+        assert self.page.is_url(self.paths.category + self.path.phones)
 
     def test_button_clear_cart(self):
-        empty_cart_message = "Корзина пуста. Случайно не нужен \nтелефон\n?"
+        empty_cart_message = self.emptyCartMessage
         self.page.add_product()
         self.page.click(self.page.locators.BUTTON_CLEAR_CART)
         assert self.page.find(
@@ -96,7 +106,7 @@ class TestCart(BaseCase):
         assert product_name_link == product_photo_link
 
     def test_favorites_button(self):
-        message_for_login = 'Войдите, чтобы добавить в избранное'
+        message_for_login = self.loginToSeeFavouritesMessage
         self.page.add_product()
         self.page.click(self.page.locators.BUTTON_FAVORITE)
 
@@ -134,7 +144,7 @@ class TestCart(BaseCase):
         assert new_product_count == product_count + 1
 
     def test_add_product_to_favorites(self):
-        empty_page_message = 'Пока в избранном ничего нет. Может нужен \nкомпьютер\n?'
+        empty_page_message = self.emptyFavouritesMessage
         self.page.authorize()
         self.page.add_product_after_login()
         href_to_product = self.page.find(
@@ -177,42 +187,42 @@ class TestCart(BaseCase):
         assert self.page.find(self.page.locators.DELIVERY_TIME_2).is_displayed()
 
     def test_block_payment_card_unauth(self):
-        message = 'Войти или зарегистрироваться, чтобы оформить заказ'
         self.page.add_product()
         assert self.page.find(
-            self.page.locators.UNAUTH_PAYMENT_CARD_MESSAGE).text == message
+            self.page.locators.UNAUTH_PAYMENT_CARD_MESSAGE).text == (
+            self.authToSeeFavouritesMessage)
 
     def test_block_payment_card_unauth_login(self):
         self.page.add_product()
         self.page.click(self.page.locators.UNAUTH_PAYMENT_CARD_MESSAGE_LOGIN_BUTTON)
-        assert self.page.is_url(paths.LOGIN)
+        assert self.page.is_url(self.paths.login)
 
     def test_block_payment_card_unauth_registration(self):
         self.page.add_product()
         self.page.click(
             self.page.locators.UNAUTH_PAYMENT_CARD_MESSAGE_REGISTRATION_BUTTON)
-        assert self.page.is_url(paths.REGISTRATION)
+        assert self.page.is_url(self.paths.signup)
 
     def test_block_user_data_unauth(self):
-        message = 'Войти или зарегистрироваться, чтобы оформить заказ'
+        message = self.authToSeeFavouritesMessage
         self.page.add_product()
         assert self.page.find(self.page.locators.UNAUTH_USER_DATA_MESSAGE).text == message
 
     def test_block_user_data_unauth_login(self):
         self.page.add_product()
         self.page.click(self.page.locators.UNAUTH_USER_DATA_MESSAGE_LOGIN_BUTTON)
-        assert self.page.is_url(paths.LOGIN)
+        assert self.page.is_url(self.paths.login)
 
     def test_block_user_data_unauth_registration(self):
         self.page.add_product()
         self.page.click(self.page.locators.UNAUTH_USER_DATA_MESSAGE_REGISTRATION_BUTTON)
-        assert self.page.is_url(paths.REGISTRATION)
+        assert self.page.is_url(self.paths.signup)
 
     def test_edit_user_data_button(self):
         self.page.authorize()
         self.page.add_product_after_login()
         self.page.click(self.page.locators.BUTTON_EDIT_USER_DATA)
-        assert self.page.is_url(paths.PROFILE)
+        assert self.page.is_url(self.paths.user)
 
     def test_sum_total_price_and_discount(self):
         self.page.add_product()
@@ -241,7 +251,7 @@ class TestCart(BaseCase):
             self.page.locators.DELIVERY_TIME).text
 
     def test_href_in_block_total_date_time_delivery(self):
-        href = 'https://www.reazon.ru/cart#delivery-info_cart'
+        href = self.path.domain + self.path.cart + self.path.cartDeliveryAnchor
         self.page.add_product()
 
         assert self.page.find(
@@ -252,24 +262,24 @@ class TestCart(BaseCase):
             self.page.locators.TOTAL_TIME_DELIVERY).get_attribute('href') == href
 
     def test_href_in_block_total_card(self):
-        href = 'https://www.reazon.ru/cart#payment-method_cart'
+        href = self.path.domain + self.path.cart + self.path.cartPaymentMethodAnchor
         self.page.add_product()
 
         assert self.page.find(self.page.locators.TOTAL_CARD).get_attribute('href') == href
 
     def test_total_unauth_message(self):
-        message = 'Чтобы оформить заказ авторизуйтесь'
+        message = self.loginToCompleteOrderPrompt
         self.page.add_product()
         assert self.page.find(self.page.locators.TOTAL_UNAUTH_MESSAGE).text == message
 
     def test_total_unauth_message_login_button(self):
         self.page.add_product()
         self.page.click(self.page.locators.TOTAL_UNAUTH_MESSAGE_LOGIN_BUTTON)
-        assert self.page.is_url(paths.LOGIN)
+        assert self.page.is_url(self.paths.login)
 
     def test_button_make_order(self):
         self.page.authorize()
         self.page.add_product_after_login()
         assert self.page.find(self.page.locators.BUTTON_MAKE_ORDER).is_displayed()
         self.page.click(self.page.locators.BUTTON_MAKE_ORDER)
-        assert self.page.is_url(paths.ORDERS)
+        assert self.page.is_url(self.paths.orders)

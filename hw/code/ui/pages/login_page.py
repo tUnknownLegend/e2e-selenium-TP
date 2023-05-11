@@ -9,13 +9,12 @@ import os
 
 
 class LoginPage(BasePage):
-    email = os.getenv('LOGIN_A')
-    pwd = os.getenv('PWD_A')
+    email = os.getenv('LOGIN_DEFAULT')
+    pwd = os.getenv('PWD_DEFAULT')
     userName = 'Sheesh'
 
     homeLocators = HomeLocators()
     profileLocators = ProfileLocators()
-    # headerLocators = HeaderLocators()
 
     def __init__(self, driver):
         super(LoginPage, self).__init__(driver)

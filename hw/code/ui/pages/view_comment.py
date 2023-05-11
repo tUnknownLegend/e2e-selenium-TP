@@ -5,18 +5,20 @@ from ui.locators.base_locators import BaseLocators
 
 
 class ViewComment(BasePage):
+    commentAlreadyHaveBeenAdded = 'Вы уже создали отзыв об этом товаре'
 
     def __init__(self, driver):
         super(ViewComment, self).__init__(driver)
         self.locators = ViewCommentLocators()
         self.baseLocators = BaseLocators()
         self.loginPage = LoginPage(driver)
-        self.url = self.locators.hrefs.domain + self.locators.hrefs.comment + '/43'
+        self.url = self.locators.hrefs.domain + \
+            self.locators.hrefs.comment + self.locators.hrefs.defaultProduct
 
     def checkErrorAddComment(self):
         self.getAddCommentButton().click()
 
-        self.checkErrorMessage('Вы уже создали отзыв об этом товаре')
+        self.checkErrorMessage(self.commentAlreadyHaveBeenAdded)
 
     def getAddCommentButton(self):
         return self.find(self.locators.ADD_COMMENT_BUTTON)

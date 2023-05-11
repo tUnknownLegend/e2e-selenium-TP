@@ -9,4 +9,4 @@ show-results-allure:
 
 set-env:
 	set -a && source .env && set +a
-	
+

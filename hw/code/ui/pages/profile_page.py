@@ -5,10 +5,6 @@ from ui.pages.login_page import LoginPage
 import time
 
 
-from ui.base_case.base_case import BaseCase
-
-
-
 class ProfilePage(BasePage):
     locators = ProfileLocators
     PATH = 'user'

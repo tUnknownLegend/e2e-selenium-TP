@@ -6,25 +6,25 @@ from ui.locators.comment_titile_locators import CommentTitleLocators
 from ui.locators.home_locators import HomeLocators
 from ui.locators.catalog_locators import CatalogLocators
 
-# import pytest
 
-
-# @pytest.mark.skip('skip')
 class TestChangeItemCountInCart():
 
     baseLocator = BaseLocators()
 
     productChangeCount = ChangeCartCountButton(
         CartCountLocators,
-        baseLocator.hrefs.domain + baseLocator.hrefs.product + '/43')
+        baseLocator.hrefs.domain + baseLocator.hrefs.product +
+        baseLocator.hrefs.defaultProduct)
 
     viewComment = ChangeCartCountButton(
         CommentTitleLocators,
-        baseLocator.hrefs.domain + baseLocator.hrefs.comment + '/43')
+        baseLocator.hrefs.domain + baseLocator.hrefs.comment +
+        baseLocator.hrefs.defaultProduct)
 
     addComment = ChangeCartCountButton(
         CommentTitleLocators,
-        baseLocator.hrefs.domain + baseLocator.hrefs.addComment + '/43')
+        baseLocator.hrefs.domain + baseLocator.hrefs.addComment +
+        baseLocator.hrefs.defaultProduct)
 
     homePage = ChangeCartCountButton(
         HomeLocators,
@@ -32,7 +32,8 @@ class TestChangeItemCountInCart():
 
     recommendationsItemChangeCount = ChangeCartCountButton(
         HorizontalScrollCatalogLocators,
-        baseLocator.hrefs.domain + baseLocator.hrefs.product + '/43')
+        baseLocator.hrefs.domain + baseLocator.hrefs.product +
+        baseLocator.hrefs.defaultProduct)
 
     categoryPage = ChangeCartCountButton(
         CatalogLocators,
@@ -46,7 +47,7 @@ class TestChangeItemCountInCart():
     searchPage = ChangeCartCountButton(
         CatalogLocators,
         baseLocator.hrefs.domain + baseLocator.hrefs.search
-        + '?q=iphone')
+        + baseLocator.hrefs.defaultSearchQuery)
 
     def test_product_change_count(self):
         self.productChangeCount.test_unauth_change_count_buttons()

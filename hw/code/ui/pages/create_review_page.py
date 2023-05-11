@@ -9,10 +9,13 @@ class CreateComment(BasePage):
     consComment = f'cons-{uuid.uuid4().hex}'
     otherComment = f'other-{uuid.uuid4().hex}'
 
+    selectRatingMessage = 'Укажите рейтинг товара'
+
     def __init__(self, driver):
         super(CreateComment, self).__init__(driver)
         self.locators = AddCommentLocators()
-        self.url = self.locators.hrefs.domain + self.locators.hrefs.addComment + '/43'
+        self.url = self.locators.hrefs.domain + \
+            self.locators.hrefs.addComment + self.locators.hrefs.defaultProduct
 
     def logout(self):
         self.header.logout()
@@ -25,7 +28,7 @@ class CreateComment(BasePage):
 
         self.submitComment()
 
-        self.checkErrorMessage('Укажите рейтинг товара')
+        self.checkErrorMessage(self.selectRatingMessage)
 
     def checkUnauthAddComment(self):
         assert self.locators.hrefs.login in self.getHref(self.locators.UNAUTH_LOGIN_LINK)

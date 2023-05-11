@@ -2,6 +2,7 @@ from ui.pages.base_page import BasePage
 
 
 class Favourites(BasePage):
+    authToAddToFavourites = 'Войдите, чтобы добавить в избранное'
 
     def __init__(self, driver, selectors, url):
         super(Favourites, self).__init__(driver)
@@ -17,7 +18,7 @@ class Favourites(BasePage):
 
         assert not favouritesLabel.get_attribute('checked')
 
-        self.checkErrorMessage('Войдите, чтобы добавить в избранное')
+        self.checkErrorMessage(self.authToAddToFavourites)
 
         assert not self.find(
             self.locators.GET_FAVOURITES_LABEL).get_attribute('checked')

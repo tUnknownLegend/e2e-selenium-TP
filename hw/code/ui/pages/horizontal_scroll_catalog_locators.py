@@ -7,7 +7,8 @@ class HorizontalScrollCatalog(BasePage):
     def __init__(self, driver):
         super(HorizontalScrollCatalog, self).__init__(driver)
         self.locators = HorizontalScrollCatalogLocators()
-        self.url = self.locators.hrefs.domain + self.locators.hrefs.product + '/43'
+        self.url = self.locators.hrefs.domain + \
+            self.locators.hrefs.product + self.locators.hrefs.defaultProduct
 
     def getNumberOfElementsInContainer(self, index):
         return self.find(

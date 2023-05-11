@@ -20,8 +20,8 @@ class StaleTimeoutExeption(Exception):
 class BasePage(object):
 
     baseLocators = BaseLocators()
-    default_timeout = 15
-    mini_timeout = 3
+    default_timeout = 20
+    mini_timeout = 5
     locators = locators.BasePageLocators()
     PATH = ""
 
@@ -59,12 +59,11 @@ class BasePage(object):
             func(newSelf)
         return wrapper
 
-    def wait(self, timeout=5):
+    def wait(self, timeout=mini_timeout):
         return WebDriverWait(self.driver, timeout=timeout)
 
-    def find(self, locator, timeout=10):
-        self.waitUntilVisible(locator, 3)
-        return self.wait(timeout).until(
+    def find(self, locator, timeout=mini_timeout):
+        return self.wait(timeout + self.mini_timeout).until(
             EC.presence_of_element_located(locator))
 
     def scrollToLocator(self, locator):
@@ -78,10 +77,10 @@ class BasePage(object):
     def hover(self, element):
         self.actions.move_to_element(element).perform()
 
-    def waitUntilVisible(self, selector, timeout=5):
+    def waitUntilVisible(self, selector, timeout=mini_timeout):
         self.wait(timeout).until(EC.presence_of_element_located(selector))
 
-    def waitUntilInvisible(self, selector, timeout=5):
+    def waitUntilInvisible(self, selector, timeout=mini_timeout):
         self.wait(timeout).until(EC.invisibility_of_element_located(selector))
 
     def checkErrorMessage(self, errorMessage):
@@ -96,16 +95,16 @@ class BasePage(object):
     def getTabTitle(self):
         return self.driver.title.strip()
 
-    def getInnerText(self, selector):
-        return self.find(selector).get_attribute('innerText').strip()
+    def getInnerText(self, selector, timeout=mini_timeout):
+        return self.find(selector, timeout).get_attribute('innerText').strip()
 
-    def getHref(self, selector):
-        return self.find(selector).get_attribute('href')
+    def getHref(self, selector, timeout=mini_timeout):
+        return self.find(selector, timeout).get_attribute('href')
 
-    def getSrc(self, selector):
-        return self.find(selector).get_attribute('src')
+    def getSrc(self, selector, timeout=mini_timeout):
+        return self.find(selector, timeout).get_attribute('src')
 
-    def waitUntilClickableElement(self, selector, timeout=5):
+    def waitUntilClickableElement(self, selector, timeout=mini_timeout):
         self.wait(timeout).until(EC.element_to_be_clickable(selector))
 
     def checkPhoto(self, selector):
