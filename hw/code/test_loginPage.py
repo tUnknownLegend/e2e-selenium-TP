@@ -1,5 +1,6 @@
 from ui.pages.login_page import LoginPage
 from ui.fixtures import get_driver
+from ui.pages.header import Header
 
 
 class Case:
@@ -11,6 +12,7 @@ class Case:
 class TestLogin():
     driver = get_driver(browser_name='chrome')
     loginPage = LoginPage(driver)
+    header = Header(driver)
 
     failCases = [
         Case("", "b", "Поле обязательно должно быть заполнено"),
@@ -24,6 +26,12 @@ class TestLogin():
     def test_title(self):
         title = 'Вход - Reazon'
         assert self.driver.title == title
+        
+    @loginPage.render_decorator
+    def test_redirect(self):
+        self.loginPage.find(self.loginPage.locators.SIGNUP_LINK).click()
+        assert self.driver.current_url == "https://www.reazon.ru/signup"
+        self.loginPage.render(self.loginPage.url)
 
     @loginPage.render_decorator
     def test_fail(self):
@@ -36,9 +44,9 @@ class TestLogin():
         self.loginPage.login("test@test", "123456")
         self.loginPage.waitUntilVisible(self.loginPage.homeLocators.GET_CATEGORIES_CONTAINER)
         assert self.driver.current_url == "https://www.reazon.ru/"
+        self.header.findUserPageButton()
+        self.header.logout()
 
-    # @loginPage.render_decorator
-    # def test_redirect(self):
-    #     self.loginPage.find(self.loginPage.locators.SIGNUP_LINK).click()
-    #     assert self.driver.current_url == "https://www.reazon.ru/signup"
+
+   
 

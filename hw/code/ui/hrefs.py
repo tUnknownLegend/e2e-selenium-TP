@@ -1,6 +1,7 @@
 class Hrefs():
     product = '/product'
     login = '/login'
+    signup = '/signup'
     user = '/user'
     cart = '/cart'
     userFavorites = '/user/favorites'

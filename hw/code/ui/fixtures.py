@@ -35,7 +35,7 @@ def _options(headless=False):
 
 
 def get_driver(browser_name):
-    headless = False
+    headless = True
 
     if browser_name == 'chrome':
         browser = webdriver.Chrome(
