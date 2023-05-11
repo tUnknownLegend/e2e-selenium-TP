@@ -13,3 +13,5 @@ class LoginPageLocators(BaseLocators):
         self.SIGN_IN_BUTTON_LOGIN_PAGE = (By.ID, 'submit-result')
 
         self.ERROR = (By.ID, 'error-text')
+
+        self.SIGNUP_LINK = (By.LINK_TEXT, 'Зарегистрироваться')
